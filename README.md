@@ -19,3 +19,7 @@ Regarding time efficiency, both approach take linear time in the length of the a
 ## Solution
 
 [Our whiteboard in progress](assets/array-reverse.png)
+
+## Collaborators
+
+This solution was whiteboarded together with my companions @Pablito14, @F0rgiv, @GoldenDog190 .
