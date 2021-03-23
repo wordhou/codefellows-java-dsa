@@ -22,4 +22,4 @@ Regarding time efficiency, both approach take linear time in the length of the a
 
 ## Collaborators
 
-This solution was whiteboarded together with my companions @Pablito14, @F0rgiv, @GoldenDog190 .
+This solution was whiteboarded together with my peers [Pablito14](https://github.com/Pablito14), [F0rgiv](https://github.com/F0rgiv), [GoldenDog190](https://github.com/GoldenDog190).
