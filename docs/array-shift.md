@@ -16,6 +16,8 @@ The efficiency of this approach should be linear in time and space, since it loo
 
 ## Solution
 
+Our [solution code](../challenges/lib/src/main/java/challenges/ArrayShift.java) for this problem.
+
 [Our group's whiteboard for the problem](../assets/array-shift.png)
 
 ## Collaborators
