@@ -9,3 +9,7 @@ The challenge asked us to reverse an array. It gave us the option to either reve
 # Day 2: Arrays, loops, and unit testing
 
 Code challenge two asks us to insert an element into the middle of an array. [Summary](docs/array-shift.md) of our second code challenge.
+
+# Day 3: Binary search
+
+The third code challenge asks us to implement the classic binary search algorithm on a sorted list of `int`s. [Details](docs/binary-search.md) on the third code challenge.
