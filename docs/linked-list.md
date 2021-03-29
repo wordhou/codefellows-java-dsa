@@ -24,6 +24,10 @@ The efficiency of the search method `.includes` is `O(n)` in the number of eleme
 
 The efficiency of the `toString` method is also `O(n)` since we have to go through the entire list to display every element.
 
+For the `insertBeforeFirstOccurrence` and `insertAfterFirstOccurrence`, we implement a linear search through the linked list and performed the necessary pointer updates. Cases that had to checked for were inserting at the very beginning or end of the list, where we needed to update the head or tail pointer. Since a linear search is required, the algorithm runs in `O(n)` time.
+
+![Our whiteboard for insertion before and after first occurrence](../assets/linkedListInsertion.jpeg)
+
 ## API
 
 ```java
