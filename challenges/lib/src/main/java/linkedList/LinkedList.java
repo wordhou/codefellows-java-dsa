@@ -125,6 +125,11 @@ public class LinkedList<T> implements Iterable<T> {
         return node;
     }
 
+    @Nullable
+    private Node<T> getFirstOccurrence(T item) {
+        
+    }
+
     @Override @Nonnull
     public Iterator<T> iterator() {
         return new LinkedListIterator<>(head);
