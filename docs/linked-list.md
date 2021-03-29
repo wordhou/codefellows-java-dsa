@@ -10,7 +10,7 @@ Adding elements to the linked list involves creating a new node with the new val
 
 The includes method checks to see whether or not an item is in the list. This is implemented using a simple while loop through the nodes, iterating by going to the next node. If the current node's item is the item we're looking for, return `true`, and if the next node is `null` (meaning we've reached the end of the list), return `false.`
 
-Finally, `toString` was implemented recursively as well.
+Finally, `toString` was implemented by iterating through the nodes while adding strings to a StringBuilder.
 
 Several more methods were implemented to make the API more resemble the Java collections `LinkedList` API.
 
@@ -43,15 +43,30 @@ void append(T item) // O(1): Inserts an item at the end of the list
 void append(Iterable<T> items)
   // O(m): Appends m items at the end of the list
 
-T pop() // O(1): Removes an item from the start of the list and returns it
+void insertAfterFirstOccurrence(T find, T item) throws NoSuchElementException
+  // O(n) Inserts the item after the first element found with value find.
+  // If no value is found, throws a NoSuchElementException
 
-T removeFromEnd()
+void insertBeforeFirstOccurrence(T find, T item) throws NoSuchElementException
+  // O(n) Inserts the item just before the first element with a given value "find"
+  // If no value is found, throws a NoSuchElementException
+
+void deleteFirstOccurrence(T item) throws NoSuchElementException
+  // O(n) Deletes the first occurrence of an item from the list
+  // If no value is found, throws a NoSuchElementException
+
+T pop() throws NoSuchElementException
+  // O(1): Removes an item from the start of the list and returns it
+  // If that item does not exist, throws a NoSuchElementException
+
+T removeFromEnd() throws NoSuchElementException
   // O(n): Removes an item from the end of the list and returns it
+  // If that item does not exist, throws a NoSuchElementException
 
-void set(int index, T item):
+void set(int index, T item) throws IndexOutOfBoundsException
   // O(index): Sets the value of the item at the given index
 
-T get(int index):
+T get(int index) throws IndexOutOfBoundsException
   // O(index): Retrieves the value of the item at the given index
 
 boolean includes(T item)

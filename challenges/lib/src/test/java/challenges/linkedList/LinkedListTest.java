@@ -1,4 +1,4 @@
-package linkedList;
+package challenges.linkedList;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -262,5 +262,90 @@ public class LinkedListTest {
                 IndexOutOfBoundsException.class, () -> l.set(-1, 0));
         assertThrows("get with out of bounds index",
                 IndexOutOfBoundsException.class, () -> l.set(7, 0));
+    }
+
+    @Test
+    public void insertBeforeFirstOccurrenceItemNotInList() {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 5, 4, 6, 7));
+        assertThrows("should throw when item not in list",
+                NoSuchElementException.class, () -> l.insertBeforeFirstOccurrence(10, 10));
+    }
+
+    @Test
+    public void insertBeforeFirstOccurrenceItemInList() throws NoSuchElementException {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 2, 1));
+        l.insertBeforeFirstOccurrence(2,100);
+        assertTrue("inserts item into interior of list", l.includes(100));
+        assertEquals("inserts item in correct position in interior",
+                100, (int) l.get(2));
+        assertEquals("increases size when inserting element", 6, l.size());
+        l.insertBeforeFirstOccurrence(1, 1000);
+        assertEquals("inserts item in correct position at beginning",
+                1000, (int) l.get(0));
+        assertEquals("increases size when inserting element", 7, l.size());
+        assertEquals("inserts only before first occurrence", 1000, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 1, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 3, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 100, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 2, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 2, (int) l.pop());
+        assertEquals("inserts only before first occurrence", 1, (int) l.pop());
+        assertTrue(l.isEmpty());
+    }
+
+    @Test
+    public void insertAfterFirstOccurrenceItemNotInList() {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 5, 4, 6, 7));
+        assertThrows("should throw when item not in list",
+                NoSuchElementException.class, () -> l.insertAfterFirstOccurrence(10, 10));
+    }
+
+    @Test
+    public void insertAfterFirstOccurrenceItemInList() throws NoSuchElementException {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 2, 5));
+        l.insertAfterFirstOccurrence(3,100);
+        assertTrue("inserts item into interior of list", l.includes(100));
+        assertEquals("inserts item in correct position in interior",
+                100, (int) l.get(2));
+        assertEquals("increases size when inserting element", 6, l.size());
+        l.insertAfterFirstOccurrence(5, 1000);
+        assertEquals("inserts item in correct position at end",
+                1000, (int) l.get(6));
+        assertEquals("increases size when inserting element", 7, l.size());
+        assertEquals("inserts only after first occurrence", 1, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 3, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 100, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 2, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 2, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 5, (int) l.pop());
+        assertEquals("inserts only after first occurrence", 1000, (int) l.pop());
+        assertTrue(l.isEmpty());
+    }
+
+    @Test
+    public void deleteFirstOccurrenceItemNotInList() {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 5, 4, 6, 7));
+        assertThrows("should throw when item not in list",
+                NoSuchElementException.class, () -> l.deleteFirstOccurrence(10));
+    }
+
+    @Test
+    public void deleteFirstOccurrenceItemInList() throws NoSuchElementException {
+        LinkedList<Integer> l = new LinkedList<>();
+        l.append(Arrays.asList(1, 3, 2, 2, 5));
+        l.deleteFirstOccurrence(2);
+        assertEquals("decreases size when deleting element", 4, l.size());
+        l.deleteFirstOccurrence(1);
+        assertEquals("deletes item when it's the head", 3, (int) l.get(0));
+        l.deleteFirstOccurrence(2);
+        assertFalse("deletes both occurrences when run twice", l.includes(2));
+        assertEquals("deletes only the items indicated", 3,(int) l.pop());
+        assertEquals("deletes only the items indicated", 5,(int) l.pop());
+        assertTrue(l.isEmpty());
     }
 }

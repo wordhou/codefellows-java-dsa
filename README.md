@@ -14,6 +14,10 @@ Code challenge two asks us to insert an element into the middle of an array. [Su
 
 The third code challenge asks us to implement the classic binary search algorithm on a sorted list of `int`s. [Details](docs/binary-search.md) on the third code challenge.
 
-# Day 4: Linked List
+# Day 5: Linked List
 
 We implement a basic linked list class with just a few instance methods. This class will get fleshed out more later. [Details](docs/linked-list.md) on the linked list class.
+
+# Day 6: Insertion and Deletion in Linked Lists
+
+We build on the linked list class from day 5 and add insertion and deletion to the API.

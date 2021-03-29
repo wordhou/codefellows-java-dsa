@@ -1,4 +1,4 @@
-package linkedList;
+package challenges.linkedList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,6 +49,47 @@ public class LinkedList<T> implements Iterable<T> {
 
     public void append(Iterable<T> items) {
         for (T item : items) append(item);
+    }
+
+    public void insertBeforeFirstOccurrence(T find, T item) throws NoSuchElementException {
+        if (head == null) throw new NoSuchElementException("Element does not exist in list.");
+        if (head.item.equals(find)) {
+            insert(item); // insert method updates our head reference for us
+            return;
+        }
+        Node<T> node = head;
+        while (node.next != null && !node.next.item.equals(find)) node = node.next;
+        if (node.next == null) throw new NoSuchElementException("Element does not exist in list.");
+
+        node.next = new Node<>(item, node.next);
+        numElements++;
+    }
+
+    public void insertAfterFirstOccurrence(T find, T item) throws NoSuchElementException {
+        Node<T> node = head;
+        while (node != null && !node.item.equals(find)) node = node.next;
+        if (node == null) throw new NoSuchElementException("Element does not exist in list.");
+
+        assert (node.item == find);
+        node.next = new Node<>(item, node.next);
+        if (node == tail) {
+            tail = node.next;
+        }
+        numElements++;
+    }
+
+    public void deleteFirstOccurrence(T item) throws NoSuchElementException {
+        if (head == null) throw new NoSuchElementException("Element does not exist in list.");
+        if (head.item.equals(item)) {
+            pop();
+            return;
+        }
+        Node<T> node = head;
+        while (node.next != null && !node.next.item.equals(item)) node = node.next;
+        if (node.next == null) throw new NoSuchElementException("Element does not exist in list.");
+
+        node.next = node.next.next;
+        numElements--;
     }
 
     public T pop() throws NoSuchElementException {
@@ -125,12 +166,8 @@ public class LinkedList<T> implements Iterable<T> {
         return node;
     }
 
-    @Nullable
-    private Node<T> getFirstOccurrence(T item) {
-        
-    }
-
-    @Override @Nonnull
+    @Override
+    @Nonnull
     public Iterator<T> iterator() {
         return new LinkedListIterator<>(head);
     }
@@ -152,19 +189,6 @@ class Node<T> {
     public Node(T item, Node<T> next) {
         this.item = item;
         this.next = next;
-    }
-
-    public String toString() {
-        if (next == null) return String.format("{ %s } -> NULL", item.toString());
-        else return String.format("{ %s } -> %s", item.toString(), next.toString());
-    }
-
-    /**
-     * Changes the current next pointer to point to the next of the next. Does not update the size of the LinkedList
-     */
-    public void removeNext() throws NoSuchElementException {
-        if (next == null) throw new NoSuchElementException("Node has no next element");
-        next = next.next;
     }
 }
 
