@@ -12,9 +12,7 @@ The includes method checks to see whether or not an item is in the list. This is
 
 Finally, `toString` was implemented by iterating through the nodes while adding strings to a StringBuilder.
 
-The `get` method gets the value at the `i`th index in the linked list, indexed starting from `0`. This can be done with a simple for loop, iterating from the current to the next node `i` times. Since we're maintaining a `numElements` property that counts the number of nodes in the list, we can perform bounds checks at the beginning of the method instead of instead the loop.
-
-The `getFromEnd` gets the value at the `i`th value from the end. We can do this by calling `get(numElements - k - 1)`, and since the `get` method is performing bounds checks for us, we can simply let the `IndexOutOfBoundsException` bubble up to the `getFromEnd` method.
+The `get` method gets the value at the `i`th index in the linked list, indexed starting from `0`. The `getFromEnd` gets the value at the `i`th index from the end, where `0` corresponds to the last element in the list.
 
 ## Approach & Efficiency
 
@@ -29,6 +27,10 @@ The efficiency of the `toString` method is also `O(n)` since we have to go throu
 For the `insertBeforeFirstOccurrence` and `insertAfterFirstOccurrence` and `deleteFirstOccurrence` methods, we implement a linear search through the linked list and performed the necessary pointer updates. Cases that had to checked for were inserting at the very beginning or end of the list, where we needed to update the head or tail pointer. Since a linear search is required, the algorithm runs in `O(n)` time.
 
 ![Our whiteboard for insertion before and after first occurrence](../assets/linkedListInsertion.jpeg)
+
+Our `get` and `getFromEnd` methods both depend on the same strategy, which is to iterate through the nodes until we've reached the `i`th node. This can be done with a simple for loop. Since we're maintaining a `numElements` property that counts the number of nodes in the list, we can perform bounds checks at the beginning of the `get` method instead of instead the loop. For the `getFromEnd` method, since we're keeping track of the number of elements in the set, we can just call `get(numElements - k - 1)`, and since the `get` method is performing bounds checks for us, we can simply let the `IndexOutOfBoundsException` bubble up to the `getFromEnd` method.
+
+![Whiteboard for the getKthFromN method](../assets/linked-list-index.jpeg)
 
 ## API
 
