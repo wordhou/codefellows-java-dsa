@@ -12,7 +12,9 @@ The includes method checks to see whether or not an item is in the list. This is
 
 Finally, `toString` was implemented by iterating through the nodes while adding strings to a StringBuilder.
 
-Several more methods were implemented to make the API more resemble the Java collections `LinkedList` API.
+The `get` method gets the value at the `i`th index in the linked list, indexed starting from `0`. This can be done with a simple for loop, iterating from the current to the next node `i` times. Since we're maintaining a `numElements` property that counts the number of nodes in the list, we can perform bounds checks at the beginning of the method instead of instead the loop.
+
+The `getFromEnd` gets the value at the `i`th value from the end. We can do this by calling `get(numElements - k - 1)`, and since the `get` method is performing bounds checks for us, we can simply let the `IndexOutOfBoundsException` bubble up to the `getFromEnd` method.
 
 ## Approach & Efficiency
 
@@ -24,7 +26,7 @@ The efficiency of the search method `.includes` is `O(n)` in the number of eleme
 
 The efficiency of the `toString` method is also `O(n)` since we have to go through the entire list to display every element.
 
-For the `insertBeforeFirstOccurrence` and `insertAfterFirstOccurrence`, we implement a linear search through the linked list and performed the necessary pointer updates. Cases that had to checked for were inserting at the very beginning or end of the list, where we needed to update the head or tail pointer. Since a linear search is required, the algorithm runs in `O(n)` time.
+For the `insertBeforeFirstOccurrence` and `insertAfterFirstOccurrence` and `deleteFirstOccurrence` methods, we implement a linear search through the linked list and performed the necessary pointer updates. Cases that had to checked for were inserting at the very beginning or end of the list, where we needed to update the head or tail pointer. Since a linear search is required, the algorithm runs in `O(n)` time.
 
 ![Our whiteboard for insertion before and after first occurrence](../assets/linkedListInsertion.jpeg)
 
@@ -68,10 +70,14 @@ T removeFromEnd() throws NoSuchElementException
   // If that item does not exist, throws a NoSuchElementException
 
 void set(int index, T item) throws IndexOutOfBoundsException
-  // O(index): Sets the value of the item at the given index
+  // O(n): Sets the value of the item at the given index
 
 T get(int index) throws IndexOutOfBoundsException
-  // O(index): Retrieves the value of the item at the given index
+  // O(n): Retrieves the value of the item at the given index
+
+T getFromEnd(int index) throws IndexOutOfBoundsException
+  // O(n): Retrieves the value of the item at the index, counting from the end.
+  // For example, getFromEnd(0) would return the last element in the list.
 
 boolean includes(T item)
   // O(n): Returns whether or not the item is contained in the list

@@ -236,6 +236,34 @@ public class LinkedListTest {
     }
 
     @Test
+    public void getFromEndIndexOutOfBounds() {
+        LinkedList<Integer> l = new LinkedList<>();
+        Integer[] test = {1, 3, 2, 5, 4, 6, 7};
+        assertThrows("getFromEnd with out of bounds index",
+                IndexOutOfBoundsException.class, () -> l.getFromEnd(0));
+        assertThrows("getFromEnd with out of bounds index",
+                IndexOutOfBoundsException.class, () -> l.getFromEnd(-1));
+        assertThrows("getFromEnd with out of bounds index",
+                IndexOutOfBoundsException.class, () -> l.getFromEnd(1));
+        l.append(Arrays.asList(test));
+        assertThrows("getFromEnd with out of bounds index",
+                IndexOutOfBoundsException.class, () -> l.getFromEnd(-1));
+        assertThrows("getFromEnd with out of bounds index",
+                IndexOutOfBoundsException.class, () -> l.getFromEnd(7));
+    }
+
+    @Test
+    public void getFromEndIndexInBounds() {
+        LinkedList<Integer> l = new LinkedList<>();
+        Integer[] test = {1, 3, 2, 5, 4, 6, 7};
+        l.insert(Arrays.asList(test));
+        for (int i = 0; i < test.length; i++) {
+            assertEquals("getFromEnd finds elements by index starting from 0",
+                    test[i], l.getFromEnd(i));
+        }
+    }
+
+    @Test
     public void setIndexInBounds() {
         LinkedList<Integer> l = new LinkedList<>();
         Integer[] test = {1, 3, 2, 5, 4, 6, 7};
@@ -348,4 +376,5 @@ public class LinkedListTest {
         assertEquals("deletes only the items indicated", 5,(int) l.pop());
         assertTrue(l.isEmpty());
     }
+
 }
