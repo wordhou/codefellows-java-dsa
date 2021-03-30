@@ -22,8 +22,8 @@ public class LinkedList<T> implements Iterable<T> {
 
     public void insert(T item) {
         if (isEmpty()) {
-            tail = new Node<>(item, null);
-            head = tail;
+            head = new Node<>(item, null);
+            tail = head;
             numElements++;
             return;
         }
@@ -147,6 +147,10 @@ public class LinkedList<T> implements Iterable<T> {
         return numElements;
     }
 
+    public T getFromEnd(int i) throws IndexOutOfBoundsException {
+        return get(size() - i - 1);
+    }
+
     public T get(int i) throws IndexOutOfBoundsException {
         return getNode(i).item;
     }
@@ -180,6 +184,28 @@ public class LinkedList<T> implements Iterable<T> {
             node = node.next;
         }
     }
+
+    public static void main(String[] args) {
+        LinkedList<Bird> linkedList = new LinkedList<>();
+        linkedList.forEach(bird -> cookBird(bird));
+
+        linkedList.forEach(animal -> eatAnimal(animal)); // !
+    }
+    // Bird extends Animal
+    // Animal super Bird
+    // Consumer<? super T> any function that takes a super-class of T
+
+    static void cookBird(Bird bird) {
+    }
+
+    static void eatAnimal(Animal animal) {
+    }
+}
+
+class Animal {
+}
+
+class Bird extends Animal {
 }
 
 class Node<T> {

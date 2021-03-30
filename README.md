@@ -18,6 +18,10 @@ The third code challenge asks us to implement the classic binary search algorith
 
 We implement a basic linked list class with just a few instance methods. This class will get fleshed out more later. [Details](docs/linked-list.md) on the linked list class.
 
-# Day 6: Insertion and Deletion in Linked Lists
+# Day 6: Insertion and Deletion in LinkedLists
 
 We build on the linked list class from day 5 and add insertion and deletion to the API.
+
+# Day 7: Indexing from beginning and end in LinkedList
+
+We continue building on the linked list class and implement a way to access elements by index.
