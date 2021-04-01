@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -377,4 +378,66 @@ public class LinkedListTest {
         assertTrue(l.isEmpty());
     }
 
+    @Test
+    public void constructorUsingIterable() throws NoSuchElementException {
+        LinkedList<Integer> empty = new LinkedList<>(Collections.emptyList());
+        LinkedList<Integer> l = new LinkedList<>(Arrays.asList(1, 2, 3));
+        assertTrue("constructor using iterable on empty array gives empty list",
+                empty.isEmpty());
+        assertEquals("constructor using iterable populates list",
+                1, (int) l.pop());
+        assertEquals("constructor using iterable populates list",
+                2, (int) l.pop());
+        assertEquals("constructor using iterable populates list",
+                3, (int) l.pop());
+    }
+
+    @Test
+    public void equals() {
+        LinkedList<Integer> l1 = new LinkedList<>();
+        LinkedList<Integer> l2 = new LinkedList<>();
+        l1.append(1);
+        l1.append(2);
+        l1.append(3);
+        l2.append(1);
+        l2.append(2);
+        l2.append(3);
+        assertTrue("equals is true on itself",
+                l1.equals(l1));
+        assertTrue("equals is true on equal lists",
+                l1.equals(l2));
+        assertTrue("equals is true on equal lists",
+                l2.equals(l1));
+    }
+
+    @Test
+    public void interleaveEmptyCases() {
+        LinkedList<Integer> empty = new LinkedList<Integer>();
+        LinkedList<Integer> list = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
+
+        LinkedList<Integer> interleave1 = LinkedList.interleave(empty, empty);
+        LinkedList<Integer> interleave2 = LinkedList.interleave(list, empty);
+        LinkedList<Integer> interleave3 = LinkedList.interleave(empty, list);
+        assertEquals("interleave on one or more empty linked lists give original list",
+                empty, interleave1);
+        assertEquals("interleave on one or more empty linked lists give original list",
+            list, interleave2);
+        assertEquals("interleave on one or more empty linked lists give original list",
+                list, interleave3);
+    }
+
+    @Test
+    public void interleaveNonEmptyCases() {
+        LinkedList<Integer> list1 = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
+        LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(11, 22, 33));
+        LinkedList<Integer> expected1 = new LinkedList<>(Arrays.asList(1,11,2,22,3,33,4,5));
+        LinkedList<Integer> expected2 = new LinkedList<>(Arrays.asList(11,1,22,2,33,3,4,5));
+
+        LinkedList<Integer> interleave1 = LinkedList.interleave(list1, list2);
+        LinkedList<Integer> interleave2 = LinkedList.interleave(list2, list1);
+        assertEquals("interleave on one or more empty linked lists give original list",
+                expected1, interleave1 );
+        assertEquals("interleave on one or more empty linked lists give original list",
+                expected2, interleave2);
+    }
 }

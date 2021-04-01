@@ -16,6 +16,11 @@ public class LinkedList<T> implements Iterable<T> {
         numElements = 0;
     }
 
+    LinkedList(Iterable<T> items) {
+        numElements = 0;
+        this.append(items);
+    }
+
     public boolean isEmpty() {
         return head == null;
     }
@@ -170,6 +175,23 @@ public class LinkedList<T> implements Iterable<T> {
         return node;
     }
 
+    public static <T> LinkedList<T> interleave(LinkedList<T> first, LinkedList<T> second) {
+        LinkedList<T> result = new LinkedList<>();
+        Node<T> cur1 = first.head;
+        Node<T> cur2 = second.head;
+        while (cur1 != null || cur2 != null) {
+            if (cur1 != null) {
+                result.append(cur1.item);
+                cur1 = cur1.next;
+            }
+            if (cur2 != null) {
+                result.append(cur2.item);
+                cur2 = cur2.next;
+            }
+        }
+        return result;
+    }
+
     @Override
     @Nonnull
     public Iterator<T> iterator() {
@@ -185,27 +207,21 @@ public class LinkedList<T> implements Iterable<T> {
         }
     }
 
-    public static void main(String[] args) {
-        LinkedList<Bird> linkedList = new LinkedList<>();
-        linkedList.forEach(bird -> cookBird(bird));
-
-        linkedList.forEach(animal -> eatAnimal(animal)); // !
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (!(other instanceof LinkedList)) return false;
+        LinkedList o = (LinkedList<?>) other;
+        if (size() != o.size()) return false;
+        Node<T> cur = head;
+        Node<T> otherCur = o.head;
+        while(cur != null) {
+            if (!cur.item.equals(otherCur.item)) return false;
+            cur = cur.next;
+            otherCur = otherCur.next;
+        }
+        return true;
     }
-    // Bird extends Animal
-    // Animal super Bird
-    // Consumer<? super T> any function that takes a super-class of T
-
-    static void cookBird(Bird bird) {
-    }
-
-    static void eatAnimal(Animal animal) {
-    }
-}
-
-class Animal {
-}
-
-class Bird extends Animal {
 }
 
 class Node<T> {
