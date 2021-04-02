@@ -222,6 +222,29 @@ public class LinkedList<T> implements Iterable<T> {
         }
         return true;
     }
+
+    public static <T> boolean isPalindrome(LinkedList<T> input) {
+        if (input.isEmpty()) return false;
+        int middleIndex = input.size() / 2;
+        Node<T> node1 = input.head;
+        LinkedList<T> firstHalf = new LinkedList<>();
+
+        for (int i = 0; i < middleIndex; i++) {
+            firstHalf.insert(node1.item);
+            node1 = node1.next;
+        }
+
+        Node<T> node2 = firstHalf.head;
+        if (input.size() % 2 != 0) node1 = node1.next;
+
+        while(node1 != null) {
+            if (node1.item != node2.item) return false;
+            node1 = node1.next;
+            node2 = node2.next;
+        }
+
+        return true;
+    }
 }
 
 class Node<T> {
