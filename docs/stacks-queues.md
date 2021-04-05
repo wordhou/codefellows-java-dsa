@@ -17,3 +17,23 @@ The one consideration to make is which linked-list operations to use to implemen
 ## Extra
 
 I also implemented a fixed-sized circular buffer using an array. This models a queue with a fixed capacity that rejects additions after it's reached capacity. The interface for this is defined in [BoundedQueue<T>](../challenges/lib/src/main/java/challenges/stacksQueues/BoundedQueue.java) and the implementation is defined in [CircularBuffer<T>](../challenges/lib/src/main/java/challenges/stacksQueues/CircularBuffer.java).
+
+# Lab 11: Implementing a queue with two stacks
+
+We're asked to solve the classic problem of implementing a queue with two stacks.
+
+## Approach and Efficiency
+
+The solution keeps two stacks, `back` and `front`. In a queue, the convention is that elements are added at the back of the line and come out of the front of the line. Similarly, elements are added into the back stack and popped out of the front stack. Whenever the front stack is empty, we "overturn" the back stack into the front stack by popping every element from the back and pushing it into the front. Since the elements in the `back` stack come out in LIFO order, and then come out of the `front` stack in LIFO order, the order gets flipped twice and elements come out of the two stacks in the same order they arrived in.
+
+The time efficiency here is `O(1)` amortized, but `O(n)` for any individual `pop` or `peek` operation. To perform `n` pop operations with any number of pushes or peeks, we may need to overturn the stack any number of times, which is `O(n)` in the current number of elements in the back stack. However, over those `n` operations we are pushing and popping each item at most once, so performing n pops runs in `O(n)` times, and `pop` runs in average O(1) time.
+
+## Solution
+
+![Our whiteboard for the two stacks queue](../assets/two-stacks-queue.png)
+
+My code for the two stacks queue can be found [here](../challenges/lib/src/main/java/challenges/stacksQueues/TwoStacksQueue.java). One note is that our `TwoStacksQueue` is generic both on the type of item that it stores, and also generic on the stack implementation that it uses. However, to achieve this polymorphism on the stack implementation, we need to pass the constructor of the stack implementation into the constructor of `TwoStacksQueue`. Our class `TwoStacksQueue<T, S extends Stack<T>>` is instantiated as follows:
+
+```java
+TwoStacksQueue<Integer, StackImplementation<Integer>> = new TwoStacksQueue(StackImplementation<Integer>::new)
+```
