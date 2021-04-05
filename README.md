@@ -32,7 +32,7 @@ We continue building on the linked list class and implement a way to access elem
 
 # Day 10: Stacks and Queues implementations
 
-We defined the interface for a stack and a queue and implement both classes using linked lists. Details on the [stacks and queues labs](stacks-queues.md).
+We defined the interface for a stack and a queue and implement both classes using linked lists. Details on the [stacks and queues labs](docs/stacks-queues.md).
 
 # Day 11: Implementing a Queue with Two Stacks
 
