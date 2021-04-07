@@ -37,3 +37,7 @@ We defined the interface for a stack and a queue and implement both classes usin
 # Day 11: Implementing a Queue with Two Stacks
 
 Our challenge was to implement a Queue using two Stacks.
+
+# Day 12: Implementing a Specialized Queue
+
+Our challenge is to implement a queue that accepts elements of different types, allowing us to dequeue the item of a specific type that's been in the queue the longest, and allowing us to dequeue the item of any time that's been in the queue for the longest.
