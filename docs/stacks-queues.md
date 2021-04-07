@@ -4,7 +4,7 @@ In this lab we define the interface for a basic stack and queue abstract data ty
 I've written more about the stack and queue [abstract data type](https://wordhou.github.io/reading-notes/adts.html) in
 my reading notes.
 
-# Lab 10: Linked list based implementations
+# Challenge 10: Linked list based implementations
 
 We're asked to implement the stack and queue types using linked lists. I defined interfaces for both the queue and the
 stack and them implemented them in
@@ -31,7 +31,7 @@ additions after it's reached capacity. The interface for this is defined
 in [BoundedQueue<T>](../challenges/lib/src/main/java/challenges/stacksQueues/BoundedQueue.java) and the implementation
 is defined in [CircularBuffer<T>](../challenges/lib/src/main/java/challenges/stacksQueues/CircularBuffer.java).
 
-# Lab 11: Implementing a queue with two stacks
+# Challenge 11: Implementing a queue with two stacks
 
 We're asked to solve the classic problem of implementing a queue with two stacks.
 
@@ -64,7 +64,7 @@ instantiated as follows:
 TwoStacksQueue<Integer, StackImplementation<Integer>>=new TwoStacksQueue(StackImplementation<Integer>::new)
 ```
 
-# Lab 11: A queue on two types
+# Challenge 12: A queue on two types
 
 The challenge asks us to construct a queue for animals of two different types: cats, and dogs. The queue has custom
 dequeue commands that allow a user to request an animal of a certain type. If there is an animal of that type, the one
@@ -91,3 +91,22 @@ in [AnimalShelter.java](../challenges/lib/src/main/java/challenges/animalShelter
 I also generalized the solution to a general typed queue on multiple classes.
 The [TypedQueue](../challenges/lib/src/main/java/challenges/animalShelter/TypedQueue.java) class constructor takes as
 its only input an array of classes, and then the structure accepts any object that's in that array of classes.
+
+# Challenge 13: Matching brackets
+
+We're asked to create a method that validates that sets of open and close brackets within a String are all properly matched and balanced. This classic problem involves using a stack to keep track of open brackets, and popping the open brackets off the stack when we encounter their matching bracket.
+
+## Approach and Efficiency
+
+In a "valid" string, the contents of each set of matching parentheses will also be a "valid" string. This implicitly create a set of nested (or hierarchical) contexts in which each brackets creates another child in the hierarchy of contexts. The classic solution to this problem uses a stack to keep track of which context we're in.
+
+As we traverse through the characters of the string, the top of the stack will always keep the most recent un-closed bracket. This means that as we encounter an open bracket, we push that bracket onto the stack. When we encounter a closing bracket, if that bracket matches the open bracket on top of the stack we pop that bracket off the stack, representing that we leave the context of that set of brackets. If the bracket doesn't match, we return false. Alteratively, if we encounter a closing bracket while the stack is empty, we also return false. This situation represents a dangling closing bracket. Finally, if we still have open brackets in our stack at the end of the string, we return false, representing an unclosed open bracket.
+
+The time efficiency of this problem has a lower bound of O(n) since changing any one character in a valid solution can make it an invalid solution. This means that we need to see every single character to validate a string. Our solution meets this lower bound since we traverse the string once, performing a bounded number of comparisons and stack operations on each character.
+
+The space efficiency is O(n) since the stack can contain at most n characters over the course of the algorithm.
+
+## Solution
+
+![Our whiteboard for the matching brackets problem](../assets/matching-brackets.png)
+The code for the solution can be found in [MultiBracketValidationTest.java](../challenges/lib/src/main/java/challenges/utilities/MultiBracketValidation.java). The solution uses a Map to store the matching closing bracket for every opening bracket.
