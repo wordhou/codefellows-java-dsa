@@ -1,0 +1,27 @@
+In this series of challenges we're asked to implement various implementations of and algorithms on binary trees.
+
+# Day 14: Binary tree traversals and binary search trees
+
+In this challenge we define a class of binary trees and implement several methods to traverse over the binary tree. Then we extend this class to create a binary search tree, adding `insert()` and `contains()` methods.
+
+The traversals included a breadth first traversal, and preorder, inorder, and postorder depth first traversals. I wrote the traversals in a functional style, taking a method that accepts a value of type `T` as the parameter, and then running that function over each element in the tree.
+
+## Approach
+
+The binary tree class contained only one field, a reference to the root node. The nodes had three fields: a value, a left reference to another node, and a right reference to another node. I defined an iterative solution to each of the traversals. This was actually quite tricky. The breadth first traversal used a queue of nodes to visit. It begins with the root node in the queue, and then while the queue isn't empty, it visits the next node from the queue. When a node is visited, its children are enqueued. The depth-first preorder algorithm had essentially the same shape except instead of a queue, it used a stack to store the nodes to be visited.
+
+The depth-first inorder traversal and the depth-first postorder traversal were more difficult to implement iteratively. The postorder traversal can be expressed as a preorder traversal by flipping all of the left and right nodes in the tree and then processing every element in reverse order. My algorithm for performing the postorder traversal essentially runs a preorder traversal, except visiting the right node before the left node, and then pushing the values into a stack instead of procesing them right away. Then after every value has been pushed into the stack, we pop and process the elements from the stack. The stack essentially reversed the order in which elements are processed.
+
+The inorder traversal algorithm used a stack as well. In this algorithm the stack is used to keep track of nodes that need to be processed and their right child branch visited. We start with a "current node" reference pointing to the root. Then we repeat the steps until all nodes are visited. If our current node has a left child, we push the current node onto the stack, and then we go to the left child. If our current node does not have a left child, then we process its value and then set our current node to its right child. If at any point we reach a node that does not have a left or a right child, we process that value and then pop a value off the stack, and set that to our current node.
+
+The binary search tree was implemented iteratively using the classic algorithms. A value is inserted into a parent on its left if it is less than or equal to the value of the parent, and a value is inserted into a parent on its right if it is greater than the value of its parent. Searching for an element proceeds in the same fashion.
+
+## Efficiency
+
+All of the traversals are necessary `O(n)` time since every node needs to be visited. The binary tree algorithms currently have no provision for balancing the trees, so they can be `O(n)` worst case. For instance, if values are inserted into the tree in sorted order, the tree grows linearly in one direction, which results in the worst case `O(n)` for insertion and search. However if the tree is balanced we have `O(log n)` search and insertion.
+
+## Solution
+
+All of these algorithms can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/bst/BinaryTree.java) class and the [BinarySearchTree](../challenges/lib/src/main/java/challenges/bst/BinarySearchTree.java) class in my source files.
+
+![Some whiteboard material about binary trees](../assets/binary-trees.png)
