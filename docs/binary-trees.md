@@ -25,3 +25,39 @@ All of the traversals are necessary `O(n)` time since every node needs to be vis
 All of these algorithms can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/bst/BinaryTree.java) class and the [BinarySearchTree](../challenges/lib/src/main/java/challenges/bst/BinarySearchTree.java) class in my source files.
 
 ![Some whiteboard material about binary trees](../assets/binary-trees.png)
+
+# Day 15: General folds or reductions on binary trees
+
+In this challenge we're asked to write a method on a binary tree that finds the maximum value in that tree. I generalized this problem to a fold on the tree. A fold (or a reduction) takes a binary function from a result type `S` and the value type `T` of the tree to the result type `S`, and also an initial value of the result type `S` and performs this operation on every value in the tree, passing the result as the input of the next operation. This generalizes a variety of operations we'd like to perform on a collection of items, including taking the sum, product, minimum, maximum.
+
+## Approach
+
+The idea is essentially the exact same as the traversals outlined above. We encode the pattern of applying a binary operation to an accumulator value of the result type to each value in the tree as we visit it. The algorithms are the exact same as in the four traversals above.
+
+## Efficiency
+
+Since every node is visited, the efficiency is necessarily `O(n)`.
+
+## Solution
+
+![Whiteboard for the problem](../assets/max-of-binary-tree.png)
+
+The code can be found in the same classes as the previous challenge. Of note is that each traversal is overloaded in three different ways:
+
+```
+void breadthFirstTraversal(Consumer<? super T> f);
+```
+
+This method is analogous to a `forEach` method on a collection, performing a function once for every value in the tree.
+
+```
+<S> S breadthFirstTraversal(BiFunction<? super S, T, ? extends S> f, S init);
+```
+
+This method is the general `reduce` method with a result type `S` and an initial value of the result type.
+
+```
+T breadthFirstTraversal(BinaryOperator<T> f);
+```
+
+This method takes a binary operator on values of type `T` and does not take an initial value. This is a `reduce` method where the result type is the same as the value type of the collection and the initial value is taken from the collection itself. This generalises finding the sum, product, minimum, or maximum of the elements of the tree.

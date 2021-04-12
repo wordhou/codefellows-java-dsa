@@ -49,3 +49,7 @@ We use a stack to implement a solution to the matching brackets problem, where w
 # Day 14: Implementing a binary tree and binary search tree
 
 In this [series](docs/binary-trees.md) of challenges we're asked to implement various implementations of and algorithms on binary trees. We define a class of binary trees and implement several methods to traverse over the binary tree. Then we extend this class to create a binary search tree, adding insertion and search methods.
+
+# Day 15: Finding the maximum of a binary tree
+
+In this challenge we're asked to write a method on a binary tree that finds the maximum value in that tree.

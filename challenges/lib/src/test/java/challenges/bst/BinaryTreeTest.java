@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -77,5 +79,14 @@ public class BinaryTreeTest {
         List<Character> chars = large.postOrderDepthFirstEnumeration();
         for (Character c : chars) { result += c; }
         assertEquals("zagzcpaaaxbnh", result);
+    }
+
+    @Test
+    public void getMaximumBy() {
+        assertThrows("binop reduce of empty tree throws",
+                NoSuchElementException.class, () -> empty.findMaximumBy(Comparator.naturalOrder()));
+        assertEquals("finds maximum of tree", 4, (int) small.findMaximumBy(Comparator.naturalOrder()));
+        assertEquals("finds maximum of tree", 7, (int) medium.findMaximumBy(Comparator.naturalOrder()));
+        assertEquals("finds maximum of tree", 'z', (char) large.findMaximumBy(Comparator.naturalOrder()));
     }
 }
