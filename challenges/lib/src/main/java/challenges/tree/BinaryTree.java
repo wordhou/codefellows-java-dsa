@@ -1,5 +1,6 @@
-package challenges.bst;
+package challenges.tree;
 
+import challenges.linkedList.LinkedList;
 import challenges.stacksQueues.LinkedListQueue;
 import challenges.stacksQueues.LinkedListStack;
 import challenges.stacksQueues.Queue;
@@ -202,6 +203,14 @@ public class BinaryTree<T> {
         return value;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (!(other instanceof BinaryTree)) return false;
+        BinaryTree o = (BinaryTree<?>) other;
+        return root.equals(o.root);
+    }
+
     public <S> BinaryTree<S> map(Function<? super T, ? extends S> f) {
         return new BinaryTree<S>(BinaryTree.map(f, root));
     }
@@ -211,6 +220,7 @@ public class BinaryTree<T> {
     }
 
     private static <T,S> BTNode<S> map(Function<? super T, ? extends S> f, BTNode<T> node) {
+        if (node == null) return null;
         return new BTNode<S>(f.apply(node.value), map(f, node.left), map(f, node.right));
     }
 
@@ -243,26 +253,3 @@ public class BinaryTree<T> {
     }
 }
 
-class BTNode<T> {
-    public T value;
-    public BTNode<T> left;
-    public BTNode<T> right;
-
-    public BTNode(T value, BTNode<T> left, BTNode<T> right) {
-        this.value = value;
-        this.left = left;
-        this.right = right;
-    }
-
-    public BTNode(T value) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-
-    public BTNode(T value, BTNode<T> left) {
-        this.value = value;
-        this.left = left;
-        this.right = null;
-    }
-}

@@ -4,6 +4,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class LinkedList<T> implements Iterable<T> {
     @Nullable
@@ -12,11 +14,11 @@ public class LinkedList<T> implements Iterable<T> {
     Node<T> tail;
     private int numElements;
 
-    LinkedList() {
+    public LinkedList() {
         numElements = 0;
     }
 
-    LinkedList(Iterable<T> items) {
+    public LinkedList(Iterable<T> items) {
         numElements = 0;
         this.append(items);
     }
@@ -173,6 +175,27 @@ public class LinkedList<T> implements Iterable<T> {
             node = node.next;
         }
         return node;
+    }
+
+    public <S> LinkedList<S> map(Function<? super T, ? extends S> f) {
+        LinkedList<S> result = new LinkedList<>();
+        forEach(v -> result.append(f.apply(v)));
+        return result;
+    }
+
+    public static <T,S> LinkedList<S> map(Function<? super T, ? extends S> f, LinkedList<T> list) {
+        LinkedList<S> result = new LinkedList<>();
+        list.forEach(v -> result.append(f.apply(v)));
+        return result;
+    }
+
+    public boolean forAll(Predicate<? super T> p) {
+        Node<T> current = head;
+        while (current != null) {
+            if (!p.test(current.item)) return false;
+            current = current.next;
+        }
+        return true;
     }
 
     public static <T> LinkedList<T> interleave(LinkedList<T> first, LinkedList<T> second) {

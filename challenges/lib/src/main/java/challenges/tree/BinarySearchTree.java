@@ -1,4 +1,4 @@
-package challenges.bst;
+package challenges.tree;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     public BinarySearchTree() {

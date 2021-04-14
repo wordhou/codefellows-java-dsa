@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.Assert.*;
 
@@ -439,5 +441,44 @@ public class LinkedListTest {
                 expected1, interleave1 );
         assertEquals("interleave on one or more empty linked lists give original list",
                 expected2, interleave2);
+    }
+
+    @Test
+    public void map() {
+        LinkedList<Integer> empty = new LinkedList<>();
+        LinkedList<Integer> list1 = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
+        LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(2, 3, 5, 15, 12, 5));
+        LinkedList<Integer> expected1 = new LinkedList<>(Arrays.asList(2, 4, 6, 8, 10));
+        LinkedList<String> expected2 = new LinkedList<>(Arrays.asList("2", "Fizz", "Buzz", "FizzBuzz", "Fizz", "Buzz"));
+        LinkedList<String> emptyString = new LinkedList<>();
+
+        Function<Integer, String> fizzBuzz = n -> n % 15 == 0
+                ? "FizzBuzz"
+                : n % 5 == 0
+                        ? "Buzz"
+                        : n % 3 == 0 ? "Fizz" : "" + n;
+
+        Function<Integer, Integer> timesTwo = n -> n * 2;
+
+        assertEquals("map on empty list", empty.map(timesTwo), empty);
+        assertEquals("map on empty list creates list of correct type", empty.map(fizzBuzz), emptyString);
+        assertEquals("map", list1.map(timesTwo), expected1);
+        assertEquals("map", list2.map(fizzBuzz), expected2);
+    }
+
+    @Test
+    public void testMap() {
+    }
+
+    @Test
+    public void forAll() {
+        LinkedList<Integer> empty = new LinkedList<>();
+        LinkedList<Integer> list1 = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
+        LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(2, 4, 6, 8, 10, 12));
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+
+        assertTrue("empty set always satisfies forall", empty.forAll(isEven));
+        assertFalse(list1.forAll(isEven));
+        assertTrue(list2.forAll(isEven));
     }
 }

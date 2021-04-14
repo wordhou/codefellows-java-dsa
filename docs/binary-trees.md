@@ -22,7 +22,7 @@ All of the traversals are necessary `O(n)` time since every node needs to be vis
 
 ## Solution
 
-All of these algorithms can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/bst/BinaryTree.java) class and the [BinarySearchTree](../challenges/lib/src/main/java/challenges/bst/BinarySearchTree.java) class in my source files.
+All of these algorithms can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/tree/BinaryTree.java) class and the [BinarySearchTree](../challenges/lib/src/main/java/challenges/tree/BinarySearchTree.java) class in my source files.
 
 ![Some whiteboard material about binary trees](../assets/binary-trees.png)
 
@@ -68,6 +68,47 @@ This challenge asks us to perform a breadth first traversal on a binary tree.
 
 ## Solution
 
-The code can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/bst/BinaryTree.java) class.
+The code can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/tree/BinaryTree.java) class.
 
 ![Whiteboard for breadth first search](../assets/breadth-first-search.png)
+
+# Day 18: Rose trees (k-ary trees) and fizz buzz
+
+In this challenge we implement a k-ary tree and then create a new tree based on that original tree according to the "fizz buzz" rules.
+
+## Description
+
+We first need to implement a k-ary tree, a tree where a node can have any number of children. Then, we implement a `fizzBuzzTree` method that takes a tree as input and creates a new tree with all of the nodes transformed in some way. This transformation rule is from integers to strings, where numbers divisible by 3 become "Fizz", numbers divisible by 5 become "Buzz", and numbers divisible by both 3 and 5 become "FizzBuzz".
+
+## Approach
+
+### Tree implementation
+
+First we consider the various ways to implement a k-ary tree. Each node needs to have a collection of children nodes, where the collection can vary in size. There are a number of choices for the collection but a reasonable choice is a Linked List.
+
+### Mapping from one tree to another
+
+We are asked to create a new tree from an original tree with the exact same structure, but with some transformation applied to each element. What we're doing is called mapping, and the objects that we can map over are called functors.
+
+What we can do is define a map function on our binary and k-ary tree implementations that allow us to generalize this pattern.
+
+The most straightforward approach is to handle this recursively over the nodes, where mapping a node involves calling the function recursively on its children and then attaching those mapped nodes to the new parent.
+
+Since Java is not a great setting for recursion the iterative approach involves performing a depth first traversal of the original tree and then building a new tree with transformed values as we traverse the first tree.
+
+### Fizz Buzz transformation
+
+There are a number of choices we could make to define the Fizz Buzz transformation. Since Java is statically typed and does not support algebraic types we can't create a tree that stores both numeric and string values without going down to their greatest common type, which would be Object.
+
+My choice is to make the input domain Integer and the output domain String, where we map Integers to Strings if the value is to be unchanged.
+
+## Efficiency
+
+Mapping from one tree to another is necessarily O(n) in time and space, since we need to see every element in the first tree, and also create a new tree with the exact same number of elements.
+
+## Solution
+
+I went with the recursive definition of map on tree nodes for both the binary tree and the k-ary tree.
+The code can be found in the [RoseTree](../challenges/lib/src/main/java/challenges/tree/RoseTree.java) class.
+
+![Whiteboard for our tree](../assets/mapping-trees.png)
