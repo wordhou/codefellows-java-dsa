@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class BinaryTree<T> {
     public BTNode<T> root;
@@ -199,6 +200,18 @@ public class BinaryTree<T> {
         while (!result.isEmpty())
             value = value == null ? result.pop() : f.apply(value, result.pop());
         return value;
+    }
+
+    public <S> BinaryTree<S> map(Function<? super T, ? extends S> f) {
+        return new BinaryTree<S>(BinaryTree.map(f, root));
+    }
+
+    public static <T,S> BinaryTree<S> map(Function<? super T, ? extends S> f, BinaryTree<T> tree) {
+        return new BinaryTree<S>(BinaryTree.map(f, tree.root));
+    }
+
+    private static <T,S> BTNode<S> map(Function<? super T, ? extends S> f, BTNode<T> node) {
+        return new BTNode<S>(f.apply(node.value), map(f, node.left), map(f, node.right));
     }
 
     public T findMaximumBy(Comparator<T> comp) {
