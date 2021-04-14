@@ -1,6 +1,6 @@
 In this series of challenges we're asked to implement various implementations of and algorithms on binary trees.
 
-# Day 14: Binary tree traversals and binary search trees
+# Day 15: Binary tree traversals and binary search trees
 
 In this challenge we define a class of binary trees and implement several methods to traverse over the binary tree. Then we extend this class to create a binary search tree, adding `insert()` and `contains()` methods.
 
@@ -26,7 +26,7 @@ All of these algorithms can be found in the [BinaryTree](../challenges/lib/src/m
 
 ![Some whiteboard material about binary trees](../assets/binary-trees.png)
 
-# Day 15: General folds or reductions on binary trees
+# Day 16: General folds or reductions on binary trees
 
 In this challenge we're asked to write a method on a binary tree that finds the maximum value in that tree. I generalized this problem to a fold on the tree. A fold (or a reduction) takes a binary function from a result type `S` and the value type `T` of the tree to the result type `S`, and also an initial value of the result type `S` and performs this operation on every value in the tree, passing the result as the input of the next operation. This generalizes a variety of operations we'd like to perform on a collection of items, including taking the sum, product, minimum, maximum.
 
@@ -60,4 +60,14 @@ This method is the general `reduce` method with a result type `S` and an initial
 T breadthFirstTraversal(BinaryOperator<T> f);
 ```
 
-This method takes a binary operator on values of type `T` and does not take an initial value. This is a `reduce` method where the result type is the same as the value type of the collection and the initial value is taken from the collection itself. This generalises finding the sum, product, minimum, or maximum of the elements of the tree.
+This method takes a binary operator on values of type `T` and does not take an initial value. This is a `reduce` method where the result type is the same as the value type of the collection and the initial value is taken from the collection itself. This generalizes finding the sum, product, minimum, or maximum of the elements of the tree
+
+# Day 17: Breadth first traversal on a binary tree
+
+This challenge asks us to perform a breadth first traversal on a binary tree.
+
+## Solution
+
+The code can be found in the [BinaryTree](../challenges/lib/src/main/java/challenges/bst/BinaryTree.java) class.
+
+![Whiteboard for breadth first search](../assets/breadth-first-search.png)
