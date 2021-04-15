@@ -1,5 +1,6 @@
 package challenges.bst;
 
+import challenges.tree.BinarySearchTree;
 import org.junit.Test;
 
 import java.util.Arrays;

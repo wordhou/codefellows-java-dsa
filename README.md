@@ -42,14 +42,22 @@ Our challenge was to implement a Queue using two Stacks.
 
 Our challenge is to implement a queue that accepts elements of different types, allowing us to dequeue the item of a specific type that's been in the queue the longest, and allowing us to dequeue the item of any time that's been in the queue for the longest.
 
-# Day 13: Matching brackets with a stack
+# Day 14: Matching brackets with a stack
 
 We use a stack to implement a solution to the matching brackets problem, where we validate whether or not the brackets in a string are matching and balanced.
 
-# Day 14: Implementing a binary tree and binary search tree
+# Day 15: Implementing a binary tree and binary search tree
 
 In this [series](docs/binary-trees.md) of challenges we're asked to implement various implementations of and algorithms on binary trees. We define a class of binary trees and implement several methods to traverse over the binary tree. Then we extend this class to create a binary search tree, adding insertion and search methods.
 
-# Day 15: Finding the maximum of a binary tree
+# Day 16: Finding the maximum of a binary tree
 
 In this challenge we're asked to write a method on a binary tree that finds the maximum value in that tree.
+
+# Day 17: Implementing the breadth first search
+
+In this challenge we're asked to implement a breadth first search on a binary tree.
+
+# Day 18: Rose trees (k-ary trees) and fizz buzz
+
+In this challenge we implement a k-ary tree and then create a new tree based on that original tree according to the "fizz buzz" rules.

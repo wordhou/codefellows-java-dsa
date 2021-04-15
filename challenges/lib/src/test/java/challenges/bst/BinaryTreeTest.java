@@ -1,5 +1,7 @@
 package challenges.bst;
 
+import challenges.tree.BTNode;
+import challenges.tree.BinaryTree;
 import org.junit.Before;
 import org.junit.Test;
 
