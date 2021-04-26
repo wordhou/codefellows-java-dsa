@@ -61,3 +61,7 @@ In this challenge we're asked to implement a breadth first search on a binary tr
 # Day 18: Rose trees (k-ary trees) and fizz buzz
 
 In this challenge we implement a k-ary tree and then create a new tree based on that original tree according to the "fizz buzz" rules.
+
+# Day 26: Insertion sort
+
+In this next week of challenges we are investigating various sorting algorithms. Today's [challenge](docs/sorting.md#day-26-insertion-sort) is the basic insertion sort algorithm.
