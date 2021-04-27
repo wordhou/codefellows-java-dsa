@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HeapSortTest {
-
     @Test
     public void heapSortInt() {
         int[][] arrays = {
@@ -63,4 +62,5 @@ public class HeapSortTest {
             assertArrayEquals(expected2, array) ;
         }
     }
+
 }

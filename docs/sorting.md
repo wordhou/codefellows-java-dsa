@@ -135,5 +135,93 @@ turns out, there are many algorithms that sort
 in ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)) time and later this week we'll explore
 some of them.
 
-# Day 26 bonus round: Heap sort
+# Day 27: Merge Sort
 
+We've hinted that we can do better than ![formula](https://render.githubusercontent.com/render/math?math=O(n^2)) for
+sorting. We've shown that our lower bound
+is ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)). Today we'll focus on an algorithm
+that actually meets that lower bound. Intuitively we except logarithms to show up in the time complexity when our
+problem can be broken down recursively in tree-like structures. Merge sort is exactly a way to do that. We observe that
+two sorted lists can be merged into one in ![formula](https://render.githubusercontent.com/render/math?math=O(n)) time,
+where `n` is the total number of elements from both lists. This suggests a recursive approach: sort the first half of
+the list, then sort the second half of the list, then merge those halves together. We'll investigate this approach and
+its efficiency.
+
+## The merge
+
+The simplest way to merge two arrays is as follows:
+
+- Allocate a new array with size equal to the sum of the sizes of the input arrays
+- Initialize indices `i`, `j`, and `k` as 0 to keep track of positions in the three arrays.
+- Compare the values of the first array at `i` and the second array at `j`, and add the smaller of the two to the result
+  array.
+- When we've reached the end of either of the input arrays, add the remaining elements from the other array to the
+  result array.
+
+With this algorithm in hand, we can define our merge sort algorithm as follows:
+
+- If an array is "small enough", it can be sorted using simple methods. For instance, an array of size 1 is always
+  sorted. An array of size 2 can be sorted with a simple comparison.
+- For an array with n elements, split the array into two subarrays with
+  size ![formula](https://render.githubusercontent.com/render/math?math=\left\lfloor\frac{n}{2}\right\rfloor) and
+  size ![formula](https://render.githubusercontent.com/render/math?math=n-\left\lfloor\frac{n}{2}\right\rfloor).
+- Sort both of those arrays recursively.
+- Merge the sorted arrays.
+- Return the result.
+
+## Efficiency
+
+We'll analyze the efficiency of this simple merge sort algorithm in two different ways. First, imagine the recursive
+calls of mergesort forming a tree of sub-problems, where the sub-problems are arrays to be sorted. Since each problem is
+broken down into two sub-problems, this will be a binary tree. Every node in the tree will get called exactly once
+during the execution of the algorithm. Consider the nodes from one level of the tree. The sum of the sizes of the arrays
+from that level will be exactly `n`, the number of elements in the original array, because splitting an array up into
+sub-arrays doesn't change the total number of elements. Finally, the tree will
+have ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, since each level halves the
+sizes of the arrays.
+
+Armed with these two facts, we can analyze the time and space efficiency of this algorithm from a top-down perspective.
+Completing the sub-problems on each level takes a total
+of ![formula](https://render.githubusercontent.com/render/math?math=O(n)) time and space, since copying and merging
+arrays are both linear in the total number of elements. Since there
+are ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, this gives us
+the ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)) running time that we're looking for.
+
+### The master theorem
+
+There's another way to demonstrate the ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n))
+running time of the merge sort algorithm. Recursive processes come up all the time in algorithms for various problems.
+We can often express a relationship about the running time of an algorithm as an equation of the following form:
+
+![formula](https://render.githubusercontent.com/render/math?math=T(n)=aT\left(\frac{n}{b}\right)%2Bf(n))
+
+We can imagine the ![formula](https://render.githubusercontent.com/render/math?math=T\left(\frac{n}{b}\right)) term as
+describing the time it takes to solve a number of sub-problems, and
+the ![formula](https://render.githubusercontent.com/render/math?math=f(n)) term as describing some amount of additional
+overhead involved in breaking a problem up into sub-problems or combining those solutions into a master solution.
+
+The [master theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) allows us to analyze an
+algorithm whose running time satisfies a recurrence relation of the above form, given certain constraints on the values
+of `a`, `b`, and `f(n)`. In our case we have
+values ![formula](https://render.githubusercontent.com/render/math?math=a%2D2)
+, ![formula](https://render.githubusercontent.com/render/math?math=b%2D2)
+, and ![formula](https://render.githubusercontent.com/render/math?math=f(n)%2Dn), which gives us the running time that
+we're trying to demonstrate.
+
+## A matter of space
+
+One notable difference between our merge sort algorithm and our insertion sort algorithm is that our merge sort produces
+a new sorted array and leaves the original array untouched, while our insertion sort modifies the array. This
+duplication of space on each function call in total
+uses ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%2Bn)) space. Can we do better?
+
+Note that going from one level to the next we only need a total
+of ![formula](https://render.githubusercontent.com/render/math?math=O(n)) extra space. This suggests that we should be
+able to come up with a merge sort algorithm that only
+uses ![formula](https://render.githubusercontent.com/render/math?math=O(n)) space while keeping the same time
+complexity. This is left as an exercise to the reader. (Hint: allocate an array at the beginning of the same size as the
+input array.)
+
+# Day 27 bonus round: Heap sort
+
+More to come on this later.

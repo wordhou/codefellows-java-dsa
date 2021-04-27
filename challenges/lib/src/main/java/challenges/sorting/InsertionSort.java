@@ -24,4 +24,22 @@ public class InsertionSort {
             arr.set(j + 1, temp);
         }
     }
+
+    /**
+     * Sorts an list of ints in place with insertion sort.
+     * @param arr The array to sort
+     * */
+    static void insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int j = i - 1;
+            int temp = arr[i];
+
+            while (j >= 0 && temp < arr[j]) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            arr[j + 1] = temp;
+        }
+    }
 }
