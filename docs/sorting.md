@@ -134,3 +134,6 @@ on the time efficiency of sorting. However, it doesn't actually demonstrate that
 turns out, there are many algorithms that sort
 in ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)) time and later this week we'll explore
 some of them.
+
+# Day 26 bonus round: Heap sort
+
