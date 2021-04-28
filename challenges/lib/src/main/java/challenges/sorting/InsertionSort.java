@@ -30,7 +30,19 @@ public class InsertionSort {
      * @param arr The array to sort
      * */
     static void insertionSort(int[] arr) {
-        for (int i = 1; i < arr.length; i++) {
+        insertionSort(arr, 0, arr.length);
+    }
+
+    /**
+     * Sorts a sub-array of an array of ints in place with insertion sort.
+     * @param arr The array to sort
+     * @param start The index of the beginning range we'd like to sort
+     * @param end The index of the end of the range we'd like to sort, exclusive
+     * */
+    static void insertionSort(int[] arr, int start, int end) {
+        if (end > arr.length) throw new ArrayIndexOutOfBoundsException();
+        if (start + 1 >= end) return;
+        for (int i = start + 1; i < end; i++) {
             int j = i - 1;
             int temp = arr[i];
 
