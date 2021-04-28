@@ -76,10 +76,10 @@ Finally, 4 is inserted before 5 and all of our array is sorted.
 
 From this example we can come up with an algorithm:
 
-* For `i` from `1` through `n`, the length of the array:
-    * Shift any element from the first `i-1` elements greater than the `i`th element one position to the right.
-    * Insert the `i`th element into the first `i-i` elements in the left-most position where it isn't less than the
-      element to its left.
+- For `i` from `1` through `n`, the length of the array:
+  - Shift any element from the first `i-1` elements greater than the `i`th element one position to the right.
+  - Insert the `i`th element into the first `i-i` elements in the left-most position where it isn't less than the
+    element to its left.
 
 ## The pseudo-code
 
@@ -99,14 +99,14 @@ for i from 1 to n:
 ## Efficiency
 
 In each step we need to insert an element into a sorted array, shifting everything greater than the element one to the
-right. Inserting into an array is an ![formula](https://render.githubusercontent.com/render/math?math=O(n)) operation
+right. Inserting into an array is an ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) operation
 since some fraction of the list will have to be copied and moved one position to the right. Since we're performing this
 operation once for every element in the list, our algorithm runs
-in ![formula](https://render.githubusercontent.com/render/math?math=O(n^2)) time.
+in ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>) time.
 
 ## Can we do better?
 
-As it turns out, we can sort better than ![formula](https://render.githubusercontent.com/render/math?math=O(n^2)). An
+As it turns out, we can sort better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>). An
 unsorted list with `n` unique elements can be thought of as a permutation of the elements in the list. Sorting that list
 performs a unique sequence of steps for each permutation `n` elements, since two different permutations need to be
 sorted differently to end up with a sorted list. Since there
@@ -123,26 +123,26 @@ of ![formula](https://render.githubusercontent.com/render/math?math=2^x)
 and ![formula](https://render.githubusercontent.com/render/math?math=n!) should tell us something about the growth rate
 of the best possible sorting algorithm. It turns out that the solving the
 equation ![formula](https://render.githubusercontent.com/render/math?math=2^x=n!) for `x` tells us that best possible
-sorting algorithm can run no better than ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)).
+sorting algorithm can run no better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>).
 
 (How do we do this? Take the logarithm of both sides and then
 use [Stirling's Approximation](https://en.wikipedia.org/wiki/Stirling's_approximation) of the factorial function).
 
 The point of all this mathematics is to demonstrate that no sorting algorithm can do better
-than ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)). We say that this is a lower bound
+than ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>). We say that this is a lower bound
 on the time efficiency of sorting. However, it doesn't actually demonstrate that such a sorting algorithm exists. As it
 turns out, there are many algorithms that sort
-in ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)) time and later this week we'll explore
+in ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>) time and later this week we'll explore
 some of them.
 
 # Day 27: Merge Sort
 
-We've hinted that we can do better than ![formula](https://render.githubusercontent.com/render/math?math=O(n^2)) for
+We've hinted that we can do better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>) for
 sorting. We've shown that our lower bound
-is ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)). Today we'll focus on an algorithm
+is ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>). Today we'll focus on an algorithm
 that actually meets that lower bound. Intuitively we except logarithms to show up in the time complexity when our
 problem can be broken down recursively in tree-like structures. Merge sort is exactly a way to do that. We observe that
-two sorted lists can be merged into one in ![formula](https://render.githubusercontent.com/render/math?math=O(n)) time,
+two sorted lists can be merged into one in ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) time,
 where `n` is the total number of elements from both lists. This suggests a recursive approach: sort the first half of
 the list, then sort the second half of the list, then merge those halves together. We'll investigate this approach and
 its efficiency.
@@ -180,32 +180,34 @@ sub-arrays doesn't change the total number of elements. Finally, the tree will
 have ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, since each level halves the
 sizes of the arrays.
 
+![Merge sort](../assets/merge-sort.png)
+
 Armed with these two facts, we can analyze the time and space efficiency of this algorithm from a top-down perspective.
 Completing the sub-problems on each level takes a total
-of ![formula](https://render.githubusercontent.com/render/math?math=O(n)) time and space, since copying and merging
+of ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) time and space, since copying and merging
 arrays are both linear in the total number of elements. Since there
 are ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, this gives us
-the ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n)) running time that we're looking for.
+the ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>) running time that we're looking for.
 
 ### The master theorem
 
-There's another way to demonstrate the ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%20n))
+There's another way to demonstrate the ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>)
 running time of the merge sort algorithm. Recursive processes come up all the time in algorithms for various problems.
 We can often express a relationship about the running time of an algorithm as an equation of the following form:
 
-![formula](https://render.githubusercontent.com/render/math?math=T(n)=aT\left(\frac{n}{b}\right)%2Bf(n))
+![formula](<https://render.githubusercontent.com/render/math?math=T(n)=aT\left(\frac{n}{b}\right)%2Bf(n)>)
 
-We can imagine the ![formula](https://render.githubusercontent.com/render/math?math=T\left(\frac{n}{b}\right)) term as
+We can imagine the ![formula](<https://render.githubusercontent.com/render/math?math=T\left(\frac{n}{b}\right)>) term as
 describing the time it takes to solve a number of sub-problems, and
-the ![formula](https://render.githubusercontent.com/render/math?math=f(n)) term as describing some amount of additional
+the ![formula](<https://render.githubusercontent.com/render/math?math=f(n)>) term as describing some amount of additional
 overhead involved in breaking a problem up into sub-problems or combining those solutions into a master solution.
 
-The [master theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) allows us to analyze an
+The [master theorem](<https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)>) allows us to analyze an
 algorithm whose running time satisfies a recurrence relation of the above form, given certain constraints on the values
 of `a`, `b`, and `f(n)`. In our case we have
 values ![formula](https://render.githubusercontent.com/render/math?math=a%2D2)
 , ![formula](https://render.githubusercontent.com/render/math?math=b%2D2)
-, and ![formula](https://render.githubusercontent.com/render/math?math=f(n)%2Dn), which gives us the running time that
+, and ![formula](<https://render.githubusercontent.com/render/math?math=f(n)%2Dn>), which gives us the running time that
 we're trying to demonstrate.
 
 ## A matter of space
@@ -213,15 +215,16 @@ we're trying to demonstrate.
 One notable difference between our merge sort algorithm and our insertion sort algorithm is that our merge sort produces
 a new sorted array and leaves the original array untouched, while our insertion sort modifies the array. This
 duplication of space on each function call in total
-uses ![formula](https://render.githubusercontent.com/render/math?math=O(n\log%2Bn)) space. Can we do better?
+uses ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%2Bn)>) space. Can we do better?
 
 Note that going from one level to the next we only need a total
-of ![formula](https://render.githubusercontent.com/render/math?math=O(n)) extra space. This suggests that we should be
+of ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) extra space. This suggests that we should be
 able to come up with a merge sort algorithm that only
-uses ![formula](https://render.githubusercontent.com/render/math?math=O(n)) space while keeping the same time
+uses ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) space while keeping the same time
 complexity. This is left as an exercise to the reader. (Hint: allocate an array at the beginning of the same size as the
 input array.)
 
 # Day 27 bonus round: Heap sort
 
 More to come on this later.
+
