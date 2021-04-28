@@ -91,7 +91,7 @@ We then imagine that our heap occupies the sub-array from indices `[0..n-2]`, an
 ## Code
 
 [fib-heap]: https://en.wikipedia.org/wiki/Fibonacci_heap
-[binomial-heap]: https://en.wikipedia.org/wiki/Binomial_heap
+[binom-heap]: https://en.wikipedia.org/wiki/Binomial_heap
 [o-constant]: <https://render.githubusercontent.com/render/math?math=O(1)> "O(1)"
 [o-logn]: <https://render.githubusercontent.com/render/math?math=O(\log%20n)> "O(log n)"
 [o-nlogn]: <https://render.githubusercontent.com/render/math?math=O(n\log%20n)> "O(n log n)"
