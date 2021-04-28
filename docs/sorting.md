@@ -226,5 +226,4 @@ input array.)
 
 # Day 27 bonus round: Heap sort
 
-More to come on this later.
-
+A write-up on [heap sort](heap-sort.md) using binary heaps.
