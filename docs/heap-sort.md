@@ -68,7 +68,7 @@ The idea is that nodes are indexed with the root starting at zero, and the child
 
 ## A better make-heap operation
 
-We talked about turning an unordered collection of elements into a heap by repeated insertion into an empty heap. Since we'd be inserting `n` elements, and our `add-element` operation takes ![O(log n)][o-logn] time, this gives us an ![O(n log n)][o-nlogn] time for our `make-heap` operation, while allocating ![O(n)][o-logn] additional space for our heap.
+We talked about turning an unordered collection of elements into a heap by repeated insertion into an empty heap. Since we'd be inserting `n` elements, and our `add-element` operation takes ![O(log n)][o-logn] time, this gives us an ![O(n log n)][o-nlogn] time for our `make-heap` operation, while allocating ![O(n)][o-n] additional space for our heap.
 
 However we can do better. We can actually turn an array into a heap in place without having to allocate the memory for a new heap, if we use our array to present our heap as an implicit binary tree. The way we do this is by calling heapify-down on every element. Since calling heapify-down on an element requires that every subtree beneath it is already a heap, we need to start from the bottom of the tree and work our way up. This ensures that the requirements for heapify-down are met each time we call it, and after we call heapify-down on the root of the tree, the tree satisfies the heap property.
 
