@@ -178,7 +178,7 @@ level halves the sizes of the arrays.
 Armed with these two facts, we can analyze the time and space efficiency of this algorithm from a top-down perspective.
 Completing the sub-problems on each level takes a total of ![O(n)][o-n] time and space, since copying and merging arrays
 are both linear in the total number of elements. Since there are ![log n][logn] levels, this gives us
-the ![O(log n)][ologn] running time that we're looking for.
+the ![O(log n)][onlogn] running time that we're looking for.
 
 ### The master theorem
 
