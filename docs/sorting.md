@@ -77,9 +77,9 @@ Finally, 4 is inserted before 5 and all of our array is sorted.
 From this example we can come up with an algorithm:
 
 - For `i` from `1` through `n`, the length of the array:
-  - Shift any element from the first `i-1` elements greater than the `i`th element one position to the right.
-  - Insert the `i`th element into the first `i-i` elements in the left-most position where it isn't less than the
-    element to its left.
+    - Shift any element from the first `i-1` elements greater than the `i`th element one position to the right.
+    - Insert the `i`th element into the first `i-i` elements in the left-most position where it isn't less than the
+      element to its left.
 
 ## The pseudo-code
 
@@ -99,19 +99,17 @@ for i from 1 to n:
 ## Efficiency
 
 In each step we need to insert an element into a sorted array, shifting everything greater than the element one to the
-right. Inserting into an array is an ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) operation
-since some fraction of the list will have to be copied and moved one position to the right. Since we're performing this
-operation once for every element in the list, our algorithm runs
-in ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>) time.
+right. Inserting into an array is an ![O(n)][o-n] operation since some fraction of the list will have to be copied and
+moved one position to the right. Since we're performing this operation once for every element in the list, our algorithm
+runs in ![O(n^2)][nsquared] time.
 
 ## Can we do better?
 
-As it turns out, we can sort better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>). An
-unsorted list with `n` unique elements can be thought of as a permutation of the elements in the list. Sorting that list
-performs a unique sequence of steps for each permutation `n` elements, since two different permutations need to be
-sorted differently to end up with a sorted list. Since there
-are ![formula](https://render.githubusercontent.com/render/math?math=n!) permutations of `n` elements, we need to
-perform enough comparisons to uniquely determine which of
+As it turns out, we can sort better than ![O(n^2)][nsquared] An unsorted list with `n` unique elements can be thought of
+as a permutation of the elements in the list. Sorting that list performs a unique sequence of steps for each
+permutation `n` elements, since two different permutations need to be sorted differently to end up with a sorted list.
+Since there are ![formula](https://render.githubusercontent.com/render/math?math=n!) permutations of `n` elements, we
+need to perform enough comparisons to uniquely determine which of
 the ![formula](https://render.githubusercontent.com/render/math?math=n!) permutations our list started out with.
 
 How many comparisons is that? We can think of each comparison as dividing our set of possible permutations in half,
@@ -123,26 +121,22 @@ of ![formula](https://render.githubusercontent.com/render/math?math=2^x)
 and ![formula](https://render.githubusercontent.com/render/math?math=n!) should tell us something about the growth rate
 of the best possible sorting algorithm. It turns out that the solving the
 equation ![formula](https://render.githubusercontent.com/render/math?math=2^x=n!) for `x` tells us that best possible
-sorting algorithm can run no better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>).
+sorting algorithm can run no better than ![O(log n)][ologn]
 
 (How do we do this? Take the logarithm of both sides and then
 use [Stirling's Approximation](https://en.wikipedia.org/wiki/Stirling's_approximation) of the factorial function).
 
-The point of all this mathematics is to demonstrate that no sorting algorithm can do better
-than ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>). We say that this is a lower bound
-on the time efficiency of sorting. However, it doesn't actually demonstrate that such a sorting algorithm exists. As it
-turns out, there are many algorithms that sort
-in ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>) time and later this week we'll explore
-some of them.
+The point of all this mathematics is to demonstrate that no sorting algorithm can do better than ![O(log n)][ologn] We
+say that this is a lower bound on the time efficiency of sorting. However, it doesn't actually demonstrate that such a
+sorting algorithm exists. As it turns out, there are many algorithms that sort in ![O(log n)][ologn] time and later this
+week we'll explore some of them.
 
 # Day 27: Merge Sort
 
-We've hinted that we can do better than ![formula](<https://render.githubusercontent.com/render/math?math=O(n^2)>) for
-sorting. We've shown that our lower bound
-is ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>). Today we'll focus on an algorithm
-that actually meets that lower bound. Intuitively we except logarithms to show up in the time complexity when our
-problem can be broken down recursively in tree-like structures. Merge sort is exactly a way to do that. We observe that
-two sorted lists can be merged into one in ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) time,
+We've hinted that we can do better than ![O(n^2)][nsquared] for sorting. We've shown that our lower bound
+is ![O(log n)][ologn] Today we'll focus on an algorithm that actually meets that lower bound. Intuitively we except
+logarithms to show up in the time complexity when our problem can be broken down recursively in tree-like structures.
+Merge sort is exactly a way to do that. We observe that two sorted lists can be merged into one in ![O(n)][o-n] time,
 where `n` is the total number of elements from both lists. This suggests a recursive approach: sort the first half of
 the list, then sort the second half of the list, then merge those halves together. We'll investigate this approach and
 its efficiency.
@@ -176,22 +170,19 @@ calls of mergesort forming a tree of sub-problems, where the sub-problems are ar
 broken down into two sub-problems, this will be a binary tree. Every node in the tree will get called exactly once
 during the execution of the algorithm. Consider the nodes from one level of the tree. The sum of the sizes of the arrays
 from that level will be exactly `n`, the number of elements in the original array, because splitting an array up into
-sub-arrays doesn't change the total number of elements. Finally, the tree will
-have ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, since each level halves the
-sizes of the arrays.
+sub-arrays doesn't change the total number of elements. Finally, the tree will have ![log n][logn] levels, since each
+level halves the sizes of the arrays.
 
 ![Merge sort](../assets/merge-sort.png)
 
 Armed with these two facts, we can analyze the time and space efficiency of this algorithm from a top-down perspective.
-Completing the sub-problems on each level takes a total
-of ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) time and space, since copying and merging
-arrays are both linear in the total number of elements. Since there
-are ![formula](https://render.githubusercontent.com/render/math?math=\log%20n) levels, this gives us
-the ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>) running time that we're looking for.
+Completing the sub-problems on each level takes a total of ![O(n)][o-n] time and space, since copying and merging arrays
+are both linear in the total number of elements. Since there are ![log n][logn] levels, this gives us
+the ![O(log n)][ologn] running time that we're looking for.
 
 ### The master theorem
 
-There's another way to demonstrate the ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%20n)>)
+There's another way to demonstrate the ![O(log n)][ologn]
 running time of the merge sort algorithm. Recursive processes come up all the time in algorithms for various problems.
 We can often express a relationship about the running time of an algorithm as an equation of the following form:
 
@@ -199,8 +190,9 @@ We can often express a relationship about the running time of an algorithm as an
 
 We can imagine the ![formula](<https://render.githubusercontent.com/render/math?math=T\left(\frac{n}{b}\right)>) term as
 describing the time it takes to solve a number of sub-problems, and
-the ![formula](<https://render.githubusercontent.com/render/math?math=f(n)>) term as describing some amount of additional
-overhead involved in breaking a problem up into sub-problems or combining those solutions into a master solution.
+the ![formula](<https://render.githubusercontent.com/render/math?math=f(n)>) term as describing some amount of
+additional overhead involved in breaking a problem up into sub-problems or combining those solutions into a master
+solution.
 
 The [master theorem](<https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)>) allows us to analyze an
 algorithm whose running time satisfies a recurrence relation of the above form, given certain constraints on the values
@@ -214,16 +206,114 @@ we're trying to demonstrate.
 
 One notable difference between our merge sort algorithm and our insertion sort algorithm is that our merge sort produces
 a new sorted array and leaves the original array untouched, while our insertion sort modifies the array. This
-duplication of space on each function call in total
-uses ![formula](<https://render.githubusercontent.com/render/math?math=O(n\log%2Bn)>) space. Can we do better?
+duplication of space on each function call in total uses ![O(log n)][ologn] space. Can we do better?
 
-Note that going from one level to the next we only need a total
-of ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) extra space. This suggests that we should be
-able to come up with a merge sort algorithm that only
-uses ![formula](<https://render.githubusercontent.com/render/math?math=O(n)>) space while keeping the same time
+Note that going from one level to the next we only need a total of ![O(n)][o-n] extra space. This suggests that we
+should be able to come up with a merge sort algorithm that only uses ![O(n)][o-n] space while keeping the same time
 complexity. This is left as an exercise to the reader. (Hint: allocate an array at the beginning of the same size as the
 input array.)
 
 # Day 27 bonus round: Heap sort
 
 A write-up on [heap sort](heap-sort.md) using binary heaps.
+
+# Day 28: Quick sort
+
+Quicksort is another in-place sorting algorithm that has a ![O(n log n)][nlogn] running time. The idea is another
+divide-and-conquer recursive style algorithm. We want to sort an array by breaking it down into sub-problems, solving
+the sub-problems recursively, and then combining the solutions to the sub-problems into the master solution. In this
+case, we'll divide up the problem into sub-problems by first partitioning the array into two sub-arrays, where every
+element from one is smaller than every element from the other. We make sure that the partition with smaller numbers ends
+up on the left and the partition with larger numbers ends up on the right. Then we can recursively sort these smaller
+arrays. In this case since we're sorting the array in place, we don't have to do any work to combine the solutions to
+the sub-problems. In this case, the work happens when we perform the partitioning of the array.
+
+![Diagram for quick sort](../assets/quicksort/quicksort.png)
+
+## The partitioning algorithm
+
+We'll start with a basic partitioning algorithm. Pick the last item in the array as the pivot value. The rest of the
+values in the array are either lower or higher than the pivot. (We'll include anything equal to the pivot in the low
+set.) We're going to move everything lower than the pivot to the left side of the array, gradually growing our "low
+section" as we encounter items that are smaller than the pivot. We'll keep a variable that indicates the boundary
+between our "low section" and the rest of the array. This boundary initially starts out to the left of the array, since
+our low section starts out empty.
+
+We'll iterate through the array. Every time we encounter an item that's lower than the pivot, we'll swap it with the
+item just to the right of our low section boundary, and then we'll move our low section boundary one position to the
+right to indicate that we've added an element to the low section of our algorithm. Eventually we'll reach the last item
+in our array, which is our pivot, and we'll swap that so that it's on the right side of our "low section". At this point
+we end up with the pivot in between our lower and our high elements and then return the index of the pivot.
+
+![Diagram for partitioning in quick sort](../assets/quicksort/partition.png)
+
+Since we're iterating through the array once, performing at most one comparison and one swap per iteration, this
+partitioning algorithm ends up running in ![O(n)][o-n] time, where `n` is the size of the array that we're partitioning.
+
+## The full quicksort algorithm
+
+We'll present the pseudocode for the quicksort and the partition steps:
+
+```pseudocode
+Sorts an array between the indices start and end (not including the item at end)
+quicksort(array, start, end):
+    if start + 1 < array:
+        middle <- partition(array, start, end)
+        quicksort(array, start, middle)
+        quicksort(array, middle + 1, end)
+
+partition(array, start, end):
+    pivot <- array[end - 1]
+    low <- start
+    for i in range [start .. end - 1]:
+        if array[i] <= pivot:
+            swap(array, i, low)
+            low++
+    return low - 1
+```
+
+## Efficiency
+
+We can draw some analogies between the quicksort algorithm and the mergesort algorithm. They both perform solve the
+problem with a divide-and-conquer strategy, splitting up the problem into sub-problems, solving the sub-problems, and
+then combining the solutions to the sub-problems into the solution. With mergesort, splitting up the problem into
+sub-problems just requires splitting the array in half down the middle. This can be done in constant time if we don't
+copy the arrays into new arrays, and just change the indices that we are accessing the arrays with. However, merging the
+two sorted arrays takes O(n) time since we need to traverse through both sorted lists to produce the merged list.
+
+In constant, combining the two sub-problems in quick sort takes no time at all, since the arrays are sorted in place.
+However, in quicksort the splitting actually takes up O(n) time, since we need to traverse the array to perform the
+partition operation. However, both algorithms are able to divide and conquer with only O(n) overhead. According to our
+master theorem, quicksort also takes O(n log n) time, as long as the problems are split in half on each recursion. This
+suggests that there's a worst case scenario in the quicksort algorithm, where every step splits up the array into a very
+small array and a very large array. In this case our tree becomes unbalanced, and instead of O(n log n), our algorithm
+takes O(n^2). Note also that with our current implementation this happens exactly when we receive a mostly sorted list
+as the input.
+
+## Space
+
+In the best case scenario, when the partitions are roughly equal in size on each step, our algorithm uses O(log n)
+space, since every method call needs to be stored in the call stack. In the worst case scenario, our space requirement
+becomes O(n), as our call stack grows linearly in the size of the array.
+
+## Improvements
+
+Receiving a mostly sorted list decreases our performance to the worst case O(n^2). However, on average our algorithm
+runs in O(n log n) time. We want to ensure that our algorithm avoids this worst case scenario, most of the time. One
+common way to do this is to choose a random pivot, instead of choosing the last element. This means that in the event
+that we receive a mostly sorted list, our algorithm still splits the array roughly in half on each step.
+
+Another common optimization is to switch from quicksort to insertion sort once we get to a small enough sub-array.
+Insertion sort also sorts in place, and even though it runs in O(n^2) time, the additional overhead of using the call
+stack makes insertion sort simpler and faster when the array is smaller than a certain threshold.
+
+
+[constant]: <https://render.githubusercontent.com/render/math?math=O(1)>
+
+[o-n]: <https://render.githubusercontent.com/render/math?math=O(n)>
+
+[ologn]: <https://render.githubusercontent.com/render/math?math=O(\log%20n)>
+
+[nlogn]: <https://render.githubusercontent.com/render/math?math=O(n\log%20n)>
+
+[logn]: <https://render.githubusercontent.com/render/math?math=\log%20n>

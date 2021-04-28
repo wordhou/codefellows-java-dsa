@@ -68,4 +68,8 @@ In this next week of challenges we are investigating various sorting algorithms.
 
 # Day 27: Merge sort
 
-Today's [challenge](docs/sorting.md#day-27-merge-sort) implements the merge sort algorithm
+Today's [challenge](docs/sorting.md#day-27-merge-sort) implements the merge sort algorithm.
+
+# Day 28: Quick sort
+
+Today's [challenge](docs/sorting.md#day-28-quick-sort) implements the quick sort algorithm.
