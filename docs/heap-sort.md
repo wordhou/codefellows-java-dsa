@@ -84,6 +84,12 @@ We start with our heap occupying our whole array from indices `[0..n-1]`. Then, 
 
 We then imagine that our heap occupies the sub-array from indices `[0..n-2]`, and perform a heapify-down on that sub-array to restore the heap property. Then we can repeat the algorithm on this sub-array, shrinking out sub-array with each step until all of the elements are sorted.
 
+# Putting it all together
+
+## Pseudocode
+
+## Code
+
 [fib-heap]: https://en.wikipedia.org/wiki/Fibonacci_heap
 [binomial-heap]: https://en.wikipedia.org/wiki/Binomial_heap
 [o-constant]: https://render.githubusercontent.com/render/math?math=\vspace{4pt}O(1) "O(1)"
