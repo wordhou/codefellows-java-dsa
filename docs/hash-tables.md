@@ -69,3 +69,26 @@ The API is documented in the [`Map` interface file](../challenges/lib/src/main/j
 implementation can be found in
 the [`HashTableSeparateChaining` class](../challenges/lib/src/main/java/challenges/hashTable/HashTableSeparateChaining.java)
 .
+
+# Class 30 bonus: Hash Table with Linear Probing Implementation
+
+I also implemented a hash table that uses linear probing to handle collisions rather than separate chaining. This means
+that key-value pairs are stored directly in the array, and when a collision is detected on an `add` operation, the
+key-value pair is inserted at the next available array index.
+
+Lookup involves checking the hash index and every subsequent index until a null value is found. However, removal is
+somewhat complicated by the need to maintain the invariant that every key-value pair is stored in a contiguous block of
+non-null elements starting from its hash index. This means that when an element is removed, we continue to iterate
+through the subsequent pairs, moving elements into the empty slot when needed.
+
+## API
+
+The API is the exact same as above as both hash table implementations implement the map interface that I defined.
+
+## Testing
+
+Since I only want to test the public interface of my hash table implementations, I wrote tests on the map interface that
+they both implement. These tests were written into an abstract class that expects a `getInstance()` method to be
+implemented that creates a new instance of a hash map, and also a `getKeys()` and a `getValues()` method that return
+lists with test data in them. This way a new implementation of the map interface can be tested against the same set of
+tests by implementing the `MapTest` abstract class.

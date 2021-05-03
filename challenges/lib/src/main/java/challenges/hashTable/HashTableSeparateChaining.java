@@ -29,9 +29,7 @@ public class HashTableSeparateChaining<K, V> implements Map<K, V> {
     }
 
     public HashTableSeparateChaining() {
-        this.capacity = DEFAULT_CAPACITY;
-        this.startingCapacity = capacity;
-        buckets = new Object[this.capacity];
+        this(DEFAULT_CAPACITY);
     }
 
     @Override
