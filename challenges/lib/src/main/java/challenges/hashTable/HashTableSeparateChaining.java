@@ -7,14 +7,14 @@ import javax.annotation.Nullable;
 
 public class HashTableSeparateChaining<K, V> implements Map<K, V> {
     // When the load factor exceeds the expansion threshold, the hash table is expanded
-    static final double EXPANSION_THRESHOLD = 0.75;
+    static final double EXPANSION_THRESHOLD = 0.8;
     // The proportion that the size of the underlying buckets array is increased by during expansion
     static final double EXPANSION_FACTOR = 1.5;
     // When the load factor drops below the expansion threshold, the hash table is contracted
     static final double CONTRACTION_THRESHOLD = 0.2;
     // An factor that the size hash table is decreased by during contraction;
     static final double CONTRACTION_FACTOR = 0.67;
-    // The default capacity of the hash table if no bucket size is
+    // The default capacity of the hash table if no initial size is given
     static final int DEFAULT_CAPACITY = 11;
 
     private int capacity;
