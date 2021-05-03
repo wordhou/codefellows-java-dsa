@@ -73,3 +73,7 @@ Today's [challenge](docs/sorting.md#day-27-merge-sort) implements the merge sort
 # Day 28: Quick sort
 
 Today's [challenge](docs/sorting.md#day-28-quick-sort) implements the quick sort algorithm.
+
+# Day 30: Hash Tables
+
+We define a Map interface and implement a HashTable with separate chaining (linked list) in this [challenge](docs/hash-tables.md)
