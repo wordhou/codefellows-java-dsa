@@ -92,3 +92,78 @@ they both implement. These tests were written into an abstract class that expect
 implemented that creates a new instance of a hash map, and also a `getKeys()` and a `getValues()` method that return
 lists with test data in them. This way a new implementation of the map interface can be tested against the same set of
 tests by implementing the `MapTest` abstract class.
+
+# Class 31: Counting Word Frequency
+
+The challenge involves performing a number of tasks related to word frequency in a text.
+
+## Challenge
+
+The first problem was to write a method that returns the first duplicated word in a string. Then the second challenge
+was to write a method that counts the frequencies of the words in a String. Finally, the last method returns the `k`
+most commonly used words in a String.
+
+## Approach
+
+To find the first duplicated word, I used a `HashSet` to store all the occurrences of each word. When a word is
+encountered, if it already exists in the `HashSet`, we return the word, and if it doesn't, we add it to the `HashSet`.
+This algorithm runs in O(n) time, which is also the best conceivable runtime since every token needs to be read in order
+to determine if it's the first duplicate.
+
+The String needs to be split up into words in order to perform the basic logic of the algorithm. I did this by using
+the `Pattern.compile(regex).splitAsStream(string)` method to split up a String into a stream of substrings split up by
+delimiters that match the given regex pattern.
+
+If one were processing extremely large input sizes, the input could not be stored inside a String. Then you'd have to
+consider the way that the input was processed and tokenized. Likely you would use some sort of `Stream` interface as
+well as a `Tokenizer` that read one word at a time from the input stream. This would reduce the memory usage from O(n)
+to O(m), where m is the number of unique words in the text.
+
+The second challenge involved counting the word frequencies in a text. I did this by "tokenizing" the input and keeping
+a count for each word seen so far in a HashMap. However, for storing relatively short words, a trie (prefix tree) may be
+a better candidate, especially since keys can be found in lexicographical order. This is an O(n) time operation, which
+is also the best conceivable runtime.
+
+The third problem involved determining top `k` most frequently used words in a text. My solution counted the word
+frequency, then sorted the `EntrySet` by value and returned the first `k` values in a list. However, this is far from
+optimal, requiring a costly O(m log m) sorting operation on the entries of the map, where `m` is the number of unique
+words in the text. We can in fact come up with a O(m log k) algorithm by keeping the best `k` items seen so far in a
+binary search tree that stores `k` items. Each update to the binary search tree can involve an insertion, or a removal
+and insertion, which are both O(log k) operations.
+
+## Top `k` from a collection
+
+The problem of getting the top `k` elements in sorted order from an unsorted collection of numbers of size `n` can be
+done in O(n log k) time. A simple way to do this involves using a data structure called a priority queue, which allows
+us to insert values with a numeric or comparable key in O(log k) or O(1) time, depending on implementation, finding the
+minimum key in O(1) time, and removing the minimum key from the data structure in O(log k) time. We create a priority
+queue that can store k elements. Then iterate through the collection and insert elements into the priority queue until
+it's filled with k elements. Then we compare each subsequent element with the least element in the priority queue, and
+if it's greater than the least element, we pop it and insert the new element into the priority queue.
+
+If the collection is streamed, we only need to store the data structure with our top `k` elements. Thus, we only need O(
+k) memory for this algorithm.
+
+## Top `k` from an array
+
+If we don't need the `k` elements in sorted order, we can actually get the top `k` elements from an array in O(n) time
+by reordering the array in place using an algorithm similar to the quicksort algorithm.
+
+We use the partition algorithm to find a random pivot and move the array elements less than the pivot to the left, and
+all the elements greater than the pivot to the right. If there are more than `k` elements to the right of the pivot, we
+call partition on the right side of the pivot, and if there are fewer than `k` elements to the right of the pivot, we
+call partition on the left side of the array. If there are exactly `k` elements to the right of the pivot including the
+pivot itself, we're done, and we return the last `k` elements in unsorted order.
+
+This algorithm actually runs in O(n) expected time. The algorithm is analogous to a binary search, where every step we
+are splitting our search space in half. However, in this case performing the splitting step runs in O(n) where n is the
+size of the search space remaining. search space. This results in a O(n) algorithm (since 1 + 1/2 + 1/4 + 1/8 + ... = 1)
+. Like quicksort, this is only O(1) expected time, and the worst case time can be O(n^2). We achieve closer to the
+expected time when a random pivot is used.
+
+## Solution code
+
+![Whiteboard for the basic problem](../assets/word-frequency.jpg)
+
+The solution code can be found in
+the [WordFrequencyCounterTest](../challenges/lib/src/main/java/challenges/utilities/WordFrequencyCounter.java) class.
