@@ -77,3 +77,7 @@ Today's [challenge](docs/sorting.md#day-28-quick-sort) implements the quick sort
 # Day 30: Hash Tables
 
 We define a Map interface and implement a HashTable with separate chaining (linked list) in this [challenge](docs/hash-tables.md)
+
+# Day 31: Counting word frequency
+
+We define a class that determines word frequency on a String in this [challenge](docs/hash-tables.md#day-31-counting-word-frequency).
