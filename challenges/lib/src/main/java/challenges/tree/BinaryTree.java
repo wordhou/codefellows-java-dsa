@@ -1,21 +1,18 @@
 package challenges.tree;
 
-import challenges.linkedList.LinkedList;
 import challenges.stacksQueues.LinkedListQueue;
 import challenges.stacksQueues.LinkedListStack;
 import challenges.stacksQueues.Queue;
 import challenges.stacksQueues.Stack;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class BinaryTree<T> {
+public class BinaryTree<T> implements Iterable<T> {
     public BTNode<T> root;
 
     public BinaryTree(BTNode<T> root) { this.root = root; }
@@ -251,5 +248,85 @@ public class BinaryTree<T> {
         postOrderDepthFirstTraversal(e -> result.add(e));
         return result;
     }
-}
 
+
+    @NotNull
+    @Override
+    public Iterator<T> iterator() {
+        return new BreadthFirstIterator(root);
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        LinkedList<BTNode<T>> queue = new LinkedList<>();
+        if (root != null) queue.add(root);
+
+        return new BreadthFirstSpliterator<>(queue);
+    }
+
+    static private class BreadthFirstIterator<T> implements Iterator<T> {
+        LinkedList<BTNode<T>> queue = new LinkedList<>();
+
+        public BreadthFirstIterator(BTNode<T> node) {
+            if (node != null) queue.add(node);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+        @Override
+        public T next() {
+            BTNode<T> current = queue.remove();
+            if (current.left != null) queue.add(current.left);
+            if (current.right != null) queue.add(current.right);
+            return current.value;
+        }
+    }
+
+    static private class BreadthFirstSpliterator<T> implements Spliterator<T> {
+        LinkedList<BTNode<T>> queue = new LinkedList<>();
+
+        BreadthFirstSpliterator(LinkedList<BTNode<T>> queue) {
+            this.queue = queue;
+        }
+
+        @Override
+        public boolean tryAdvance(Consumer<? super T> consumer) {
+            if (queue.isEmpty()) return false;
+
+            BTNode<T> current = queue.remove();
+            if (current.left != null) queue.add(current.left);
+            if (current.right != null) queue.add(current.right);
+            consumer.accept(current.value);
+            return true;
+        }
+
+        @Override
+        public Spliterator<T> trySplit() {
+            if (queue.size() <= 1) return null;
+            int s = queue.size() / 2;
+
+            LinkedList<BTNode<T>> otherQueue = new LinkedList<>();
+            for (int i = 0; i < s; i++) otherQueue.add(queue.remove());
+
+            return new BreadthFirstSpliterator<>(otherQueue);
+        }
+
+        @Override
+        public long estimateSize() {
+            return 0;
+        }
+
+        @Override
+        public int characteristics() {
+            return 0;
+        }
+    }
+}

@@ -91,4 +91,20 @@ public class BinaryTreeTest {
         assertEquals("finds maximum of tree", 7, (int) medium.findMaximumBy(Comparator.naturalOrder()));
         assertEquals("finds maximum of tree", 'z', (char) large.findMaximumBy(Comparator.naturalOrder()));
     }
+
+
+    @Test
+    public void iterator() {
+        //TODO
+    }
+
+    @Test
+    public void forEach() {
+        //TODO
+    }
+
+    @Test
+    public void spliterator() {
+        //TODO
+    }
 }
