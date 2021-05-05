@@ -167,3 +167,59 @@ expected time when a random pivot is used.
 
 The solution code can be found in
 the [WordFrequencyCounterTest](../challenges/lib/src/main/java/challenges/utilities/WordFrequencyCounter.java) class.
+
+# Day 32: Intersection of two binary trees
+
+Our problem asks us to write a method that takes two binary trees and returns a set containing items that occur in both
+binary trees.
+
+## Challenge
+
+The method takes two binary trees, as defined in our `tree` package. It returns a set that contains all elements in
+common between both binary trees.
+
+## Approach
+
+The approach is to collect all the elements from the first tree into a HashSet. Then initialize an empty set for the
+result. Then for each element in the second tree, if it's contained in the first set, we add it to the result set.
+
+In order to collect the elements from the first tree into a HashSet, we implemented the `Iterable` interface in
+our `BinaryTree` class. The `iterator()` method creates a `BinaryTreeIterator` that internally keeps a LinkedList of
+nodes, representing a breadth first traversal. Every time the `.next()` method is called on the iterator, we dequeue an
+element from the LinkedList, enqueue its children into the LinkedList, and then return the value of that element.
+
+Defining the `iterator()` method actually also allows us to have a default `forEach` and `spliterator` method.
+
+## Efficiency
+
+First we collect the first tree into a HashSet. This takes O(n) where n is the size of the first tree, and hash sets
+have O(1) insertion. Then we iterate through the second hash set, and for each element, we perform a contains check on
+the first hash set, and then if true, we perform an insertion into the second hashset. Contains and insertion are both
+O(1) operations, so this second stage takes O(m) elements, where m is the number of elements in the second tree. Or in
+other words, this is an O(n) operation where n is the number of elements contained in both trees.
+
+## Solution
+
+The solution is as follows:
+
+```java
+static public<T> Set<T> treeIntersection(BinaryTree<T> first,BinaryTree<T> second){
+        Set<T> firstSet = new HashSet<>(first.breadthFirstEnumeration());
+        return StreamSupport.stream(second.spliterator(),false)
+                  .filter(firstSet::contains).collect(Collectors.toSet());
+        }
+```
+
+Alternatively instead of using teh stream interface we do a `forEach:`
+
+```java
+static public<T> Set<T> treeIntersection(BinaryTree<T> first,BinaryTree<T> second){
+        Set<T> firstSet = new HashSet<>(first.breadthFirstEnumeration());
+        Set<T> result = new HashSet<>();
+        second.forEach(t -> { if(firstSet.contains(t))result.add(t); })
+        return result;
+        }
+```
+
+No whiteboard for this problem. The solution doesn't care about the fact that the inputs are binary trees. The inputs
+can be any iterable collection.

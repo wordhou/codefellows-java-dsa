@@ -1,6 +1,13 @@
 package challenges.tree;
 
+import java.util.Collection;
+
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
+    public BinarySearchTree(Collection<T> collection) {
+        super(null);
+        collection.forEach(this::add);
+    }
+
     public BinarySearchTree() {
         super(null);
     }
