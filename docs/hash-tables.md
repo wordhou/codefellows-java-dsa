@@ -204,9 +204,9 @@ The solution is as follows:
 
 ```java
 static public<T> Set<T> treeIntersection(BinaryTree<T> first,BinaryTree<T> second){
-        Set<T> firstSet = new HashSet<>(first.breadthFirstEnumeration());
+        Set<T> firstSet=new HashSet<>(first.breadthFirstEnumeration());
         return StreamSupport.stream(second.spliterator(),false)
-                  .filter(firstSet::contains).collect(Collectors.toSet());
+        .filter(firstSet::contains).collect(Collectors.toSet());
         }
 ```
 
@@ -216,10 +216,48 @@ Alternatively instead of using teh stream interface we do a `forEach:`
 static public<T> Set<T> treeIntersection(BinaryTree<T> first,BinaryTree<T> second){
         Set<T> firstSet = new HashSet<>(first.breadthFirstEnumeration());
         Set<T> result = new HashSet<>();
-        second.forEach(t -> { if(firstSet.contains(t))result.add(t); })
+        second.forEach(t -> { if(firstSet.contains(t)) result.add(t); })
         return result;
         }
 ```
 
 No whiteboard for this problem. The solution doesn't care about the fact that the inputs are binary trees. The inputs
 can be any iterable collection.
+
+# Day 33: Combining two hash maps with a "Left Join"
+
+The challenge asks us to combine two hash maps into a data structure that mimics a left join operation from SQL.
+
+## Challenge
+
+The method will take two maps, a map from `T -> A` and a map from `T -> B`. The method will return a map
+from `T -> Pair<A, B>`. Since Java doesn't have tuple types, we implement a `Pair` class.
+
+## Approach
+
+A result map is initialized with the correct type `Map<T, Pair<A,B>>`. We need to iterate through one map, checking to
+see if the key is contained in the second map. If so, a new entry is added to the result map with key `k` and
+value `new Pair(a, b)`, where `a` is the value of key `k` in the first map, and `b` is the value of key `k` in the
+second map.
+
+## Efficiency
+
+Since we need to iterate through one entire map, the running time is O(n) where n is the size of whichever map is
+smallest, since the operations `containsKey` and `put` are O(1) operations (theoretically.)
+
+## Solution:
+
+```java
+static public <T, A, B> Map<T, Pair<A,B>> leftJoin(Map<T, A> map1, Map<T,B> map2) {
+        Map<T, Pair<A,B>> result = new HashMap<>();
+
+        map1.forEach((k, va) -> {
+            B vb = map2.get(k);
+            if (vb != null) result.put(k, new Pair<>(va, vb));
+        });
+
+        return result;
+        }
+```
+
+No whiteboard is provided for this problem.
