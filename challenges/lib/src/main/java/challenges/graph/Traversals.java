@@ -11,7 +11,7 @@ public class Traversals {
     public static <T> void breadthFirstTraversal(Traversable<T> graph, T init, Consumer<? super T> consumer) {
         Queue<T> queue = new LinkedList<>();
         Set<T> visited = new HashSet<>();
-        if (!graph.containsVertex(init)) throw new NoSuchElementException();
+        if (!graph.contains(init)) throw new NoSuchElementException();
         visited.add(init);
         queue.add(init);
 
@@ -39,7 +39,7 @@ public class Traversals {
             int vertex = queue.remove();
             consumer.accept(vertex);
             int[] neighbors = graph.neighbors(vertex);
-            for(int v : neighbors) {
+            for (int v : neighbors) {
                 if (!visited.get(v)) {
                     queue.add(v);
                     visited.set(v);
@@ -51,7 +51,7 @@ public class Traversals {
     public static <T> void depthFirstTraversal(Traversable<T> graph, T init, Consumer<? super T> consumer) {
         Deque<T> stack = new ArrayDeque<>();
         Set<T> visited = new HashSet<>();
-        if (!graph.containsVertex(init)) throw new NoSuchElementException();
+        if (!graph.contains(init)) throw new NoSuchElementException();
         visited.add(init);
         stack.push(init);
 
@@ -79,7 +79,7 @@ public class Traversals {
             int vertex = stack.pop();
             consumer.accept(vertex);
             int[] neighbors = graph.neighbors(vertex);
-            for(int v : neighbors) {
+            for (int v : neighbors) {
                 if (!visited.get(v)) {
                     stack.push(v);
                     visited.set(v);
@@ -89,12 +89,12 @@ public class Traversals {
     }
 
     public <T> boolean connected(Traversable<T> graph, T from, T to) {
-        if (!graph.containsVertex(from) || !graph.containsVertex(to))
+        if (!graph.contains(from) || !graph.contains(to))
             throw new NoSuchElementException("Vertex is not in graph");
 
         Queue<T> queue = new LinkedList<>();
         Set<T> visited = new HashSet<>();
-        if (!graph.containsVertex(from)) throw new NoSuchElementException();
+        if (!graph.contains(from)) throw new NoSuchElementException();
         visited.add(from);
         queue.add(from);
 
@@ -112,7 +112,7 @@ public class Traversals {
         return false;
     }
 
-    public <T> boolean connected(IntGraph graph, int from, int to) {
+    public boolean connected(IntGraph graph, int from, int to) {
         if (from >= graph.size() || to >= graph.size())
             throw new NoSuchElementException("Vertex is not in graph");
 
@@ -125,7 +125,7 @@ public class Traversals {
             int vertex = stack.pop();
             if (vertex == to) return true;
             int[] neighbors = graph.neighbors(vertex);
-            for(int v : neighbors) {
+            for (int v : neighbors) {
                 if (!visited.get(v)) {
                     stack.push(v);
                     visited.set(v);

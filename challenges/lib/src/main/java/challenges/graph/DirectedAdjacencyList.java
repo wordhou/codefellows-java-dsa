@@ -23,7 +23,7 @@ public class DirectedAdjacencyList<T> implements DirectedGraph<T> {
     }
 
     @Override
-    public boolean containsVertex(T vertex) {
+    public boolean contains(T vertex) {
         return vertices.contains(vertex);
     }
 

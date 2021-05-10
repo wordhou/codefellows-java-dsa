@@ -23,7 +23,7 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
     }
 
     @Override
-    public boolean containsVertex(T vertex) {
+    public boolean contains(T vertex) {
         return vertices.contains(vertex);
     }
 

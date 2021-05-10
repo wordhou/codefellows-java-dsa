@@ -48,7 +48,7 @@ public class DirectedAdjacencyMatrix implements DirectedGraph<Integer> {
     }
 
     @Override
-    public boolean containsVertex(Integer vertex) {
+    public boolean contains(Integer vertex) {
         return false;
     }
 
