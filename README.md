@@ -81,3 +81,7 @@ We define a Map interface and implement a HashTable with separate chaining (link
 # Day 31: Counting word frequency
 
 We define a class that determines word frequency on a String in this [challenge](docs/hash-tables.md#day-31-counting-word-frequency).
+
+# Day 35: Graph implementations
+
+We implement a variety of [graph](docs/graphs.md) data structures and investigate their properties.
