@@ -22,6 +22,22 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public boolean contains(T vertex) {
+        return vertices.contains(vertex);
+    }
+
+    @Override
+    public boolean neighbors(T first, T second) {
+        if (!vertices.contains(first) || !vertices.contains(second))
+            throw new NoSuchElementException("Vertex does not exist in graph.");
+        List<VertexAndWeight<T, W>> firstList = adjacencyLists.get(first);
+        List<VertexAndWeight<T, W>> secondList = adjacencyLists.get(second);
+        if (firstList.size() < secondList.size())
+            return firstList.stream().anyMatch(vw -> vw.getVertex().equals(second));
+        else return secondList.stream().anyMatch(vw -> vw.getVertex().equals(first));
+    }
+
     public Set<T> getVertices() {
         return vertices;
     }
@@ -48,7 +64,7 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
     private void setVertexAsNeighbor(T first, T second, W weight) {
         List<VertexAndWeight<T, W>> list = adjacencyLists.get(first);
         list.stream()
-                .filter(vw -> vw.getVertex() == second)
+                .filter(vw -> vw.getVertex().equals(second))
                 .findAny()
                 .ifPresentOrElse(
                         vw -> vw.setWeight(weight),
@@ -61,7 +77,7 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
     public W getWeight(T vertex1, T vertex2) {
         return adjacencyLists.get(vertex1)
                 .stream()
-                .filter(vw -> vw.getVertex() == vertex2)
+                .filter(vw -> vw.getVertex().equals(vertex2))
                 .findAny()
                 .map(VertexAndWeight::getWeight)
                 .orElse(null);

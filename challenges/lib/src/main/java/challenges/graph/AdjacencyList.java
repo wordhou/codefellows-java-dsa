@@ -13,6 +13,20 @@ public class AdjacencyList<T> implements Graph<T> {
         return adjacencyLists.get(v);
     }
 
+    @Override
+    public boolean contains(T vertex) {
+        return vertices.contains(vertex);
+    }
+
+    @Override
+    public boolean neighbors(T from, T to) {
+        List<T> firstList = adjacencyLists.get(from);
+        List<T> secondList = adjacencyLists.get(to);
+        if (firstList.size() <= secondList.size())
+            return firstList.contains(to);
+        else return secondList.contains(from);
+    }
+
     public Set<T> getVertices() {
         return vertices;
     }
