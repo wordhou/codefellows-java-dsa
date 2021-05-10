@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
+import static challenges.utils.Assertions.assertCollectionsHaveSameElements;
 import static org.junit.Assert.*;
 
 public abstract class GraphTest {
@@ -85,9 +86,4 @@ public abstract class GraphTest {
         assertCollectionsHaveSameElements(Arrays.asList(1,2,5,6,9), graph.neighbors(7));
     }
 
-    static <T> void assertCollectionsHaveSameElements(Collection<T> expected, Collection<T> actual) {
-        assertEquals(expected.size(), actual.size());
-        assertTrue(expected.containsAll(actual));
-        assertTrue(actual.containsAll(expected));
-    }
 }

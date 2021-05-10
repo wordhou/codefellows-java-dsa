@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static challenges.utils.Assertions.assertArraysHaveSameElements;
 import static org.junit.Assert.*;
 
 public abstract class IntGraphTest {
@@ -77,21 +78,5 @@ public abstract class IntGraphTest {
 
     public void resize() {
         // TODO test resizing of graph
-    }
-
-    static void assertArraysHaveSameElements(int[] expected, int[] actual) {
-        int[] expectedSorted = expected.clone();
-        int[] actualSorted = expected.clone();
-        Arrays.sort(expectedSorted);
-        Arrays.sort(actualSorted);
-        assertArrayEquals(expectedSorted, actualSorted);
-    }
-
-    static void assertArraysHaveSameElements(String message, int[] expected, int[] actual) {
-        int[] expectedSorted = expected.clone();
-        int[] actualSorted = expected.clone();
-        Arrays.sort(expectedSorted);
-        Arrays.sort(actualSorted);
-        assertArrayEquals(message, expectedSorted, actualSorted);
     }
 }
