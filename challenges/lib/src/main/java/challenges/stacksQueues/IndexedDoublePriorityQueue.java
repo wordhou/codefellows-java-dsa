@@ -1,10 +1,11 @@
 package challenges.stacksQueues;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
  * A min-priority queue that accepts items labeled from 0 to n-1, with double weights that supports a O(log n) reduce-weight operation.
- *
+ * <p>
  * Takes O(n) space.
  */
 public class IndexedDoublePriorityQueue {
@@ -59,8 +60,7 @@ public class IndexedDoublePriorityQueue {
 
     public void update(int label, double weight) {
         int i = heapIndex[label];
-        if (weight > values[i])
-            throw new IllegalArgumentException("The new weight must be smaller than the existing weight.");
+        if (weight > values[i]) return;
         values[i] = weight;
         siftUp(i);
     }
@@ -106,5 +106,19 @@ public class IndexedDoublePriorityQueue {
         values[i] = tempValue;
         labels[j] = labels[i];
         labels[i] = tempLabel;
+    }
+
+    /**
+     * Adds an item to the queue if it doesn't exist, and updates it if it does exist. If the new weight is greater than the old weight, does nothing.
+     *
+     * @param label
+     * @param weight
+     */
+    public void put(int label, double weight) {
+        if (heapIndex[label] == -1) {
+            add(label, weight);
+        } else {
+            update(label, weight);
+        }
     }
 }
