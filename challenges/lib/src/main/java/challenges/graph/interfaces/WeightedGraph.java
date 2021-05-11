@@ -24,6 +24,8 @@ public interface WeightedGraph<T, W> extends Traversable<T> {
 
     int size();
 
+    boolean isDirected();
+
     class VertexAndWeight<T, W> {
         private T vertex;
         private W weight;
