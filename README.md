@@ -85,3 +85,11 @@ We define a class that determines word frequency on a String in this [challenge]
 # Day 35: Graph implementations
 
 We implement a variety of [graph](docs/graphs.md) data structures and investigate their properties.
+
+# Day 36: Graph traversals
+
+We implement a number of ways to traverse a graph in this [challenge](docs/graphs.md#Day-36-traversals).
+
+# Day 37: Paths and shortest paths
+
+We implement a method that takes a sequence of nodes and determines whether the nodes form a path in the given graph. We also implement Dijkstra's algorithm for finding the shortest path in this [challenge](docs/graphs.md#Day-37-paths) data structures and investigate their properties.

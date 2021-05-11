@@ -28,15 +28,9 @@ public class Paths {
         Double sum = null;
         while (it.hasNext()) {
             T next = it.next();
-            List<VertexAndWeight<T, Double>> vws = graph.neighborsWithWeight(vertex);
-            VertexAndWeight<T, Double> vertexWeight = vws.stream()
-                    .filter(vw -> vw.getVertex().equals(next))
-                    .findAny()
-                    .orElse(null);
-            if (vertexWeight == null) return null;
-            double weight = vertexWeight.getWeight();
+            if (!graph.neighbors(vertex, next)) return null;
+            double weight = graph.getWeight(vertex, next);
             sum = sum == null ? weight : sum + weight;
-
             vertex = next;
         }
         return sum;
@@ -72,14 +66,15 @@ public class Paths {
 
             for (int i = 0; i < neighborsAndWeights.size(); i++) {
                 if (!visited.get(nbrs[i])) {
-                    parent[nbrs[i]] = i;
+                    parent[nbrs[i]] = vertex;
                     queue.put(nbrs[i], wgts[i] + weight);
                 }
             }
         }
 
-        IntDynamicArray array = new IntDynamicArray();
+        if (vertex != finish) return new int[0];
 
+        IntDynamicArray array = new IntDynamicArray();
         while (vertex != start) {
             array.push(vertex);
             vertex = parent[vertex];
