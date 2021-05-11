@@ -15,4 +15,6 @@ public interface Graph<T> extends Traversable<T> {
     Set<T> getVertices();
 
     int size();
+
+    boolean isDirected();
 }

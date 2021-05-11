@@ -6,6 +6,6 @@ import challenges.graph.interfaces.Graph;
 public class AdjacencyListTest extends GraphTest {
     @Override
     protected Graph<Integer> createInstance() {
-        return new AdjacencyList<>();
+        return new AdjacencyList<>(false);
     }
 }

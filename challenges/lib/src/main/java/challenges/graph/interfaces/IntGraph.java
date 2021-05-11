@@ -19,4 +19,6 @@ public interface IntGraph {
     int[] neighbors(int i);
 
     boolean neighbors(int i, int j);
+
+    boolean isDirected();
 }

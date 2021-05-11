@@ -13,6 +13,8 @@ public interface DoubleWeightedIntGraph {
 
     int size();
 
+    boolean isDirected();
+
     class NeighborsAndWeights {
         int[] neighbors;
         double[] weights;

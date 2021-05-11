@@ -63,8 +63,8 @@ public class TraversalsTest {
 
     @Before
     public void init() {
-        graph1 = new AdjacencyList<>();
-        graph2 = new AdjacencyList<>();
+        graph1 = new AdjacencyList<>(false);
+        graph2 = new AdjacencyList<>(false);
         intGraph1 = new IntAdjacencyList(4);
         intGraph2 = new IntAdjacencyList(11);
 

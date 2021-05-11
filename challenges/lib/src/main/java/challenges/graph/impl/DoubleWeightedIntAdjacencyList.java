@@ -11,17 +11,28 @@ public class DoubleWeightedIntAdjacencyList implements DoubleWeightedIntGraph {
     double[][] weights;
     private int[] orders;
     private int numVertices;
+    private boolean isDirected;
 
-    public DoubleWeightedIntAdjacencyList (int size) {
+    public DoubleWeightedIntAdjacencyList (int size, boolean isDirected) {
         numVertices = size;
         neighbors = new int[size][INIT_CAPACITY];
         weights = new double[size][INIT_CAPACITY];
         orders = new int[size];
+        this.isDirected = isDirected;
+    }
+
+    public DoubleWeightedIntAdjacencyList (int size) {
+        this(size, false);
     }
 
     @Override
     public int size() {
         return numVertices;
+    }
+
+    @Override
+    public boolean isDirected() {
+        return isDirected;
     }
 
     @Override
@@ -37,7 +48,7 @@ public class DoubleWeightedIntAdjacencyList implements DoubleWeightedIntGraph {
     public void addEdge(int i, int j, double weight) {
         if (neighbors(i, j)) return;
         addToAdjacencyList(i, j, weight);
-        addToAdjacencyList(j, i, weight);
+        if (!isDirected) addToAdjacencyList(j, i, weight);
     }
 
     private void addToAdjacencyList(int i, int j, double w) {
@@ -69,10 +80,14 @@ public class DoubleWeightedIntAdjacencyList implements DoubleWeightedIntGraph {
         int[] li = neighbors[i];
         int[] lj = neighbors[j];
 
-        if (orders[i] < orders[j]) {
+        if (isDirected) {
             for (int k = 0; k < orders[i]; k++) if (li[k] == j) return true;
         } else {
-            for (int k = 0; k < orders[j]; k++) if (lj[k] == i) return true;
+            if (orders[i] < orders[j]) {
+                for (int k = 0; k < orders[i]; k++) if (li[k] == j) return true;
+            } else {
+                for (int k = 0; k < orders[j]; k++) if (lj[k] == i) return true;
+            }
         }
         return false;
     }

@@ -5,17 +5,21 @@ import challenges.graph.interfaces.Graph;
 import java.util.*;
 
 public class AdjacencyList<T> implements Graph<T> {
-    Map<T, List<T>> adjacencyLists = new HashMap<>();
-    Set<T> vertices = new HashSet<>();
+    private Map<T, List<T>> adjacencyLists = new HashMap<>();
+    private boolean isDirected = false;
+
+    public AdjacencyList(boolean isDirected) {
+        this.isDirected = isDirected;
+    }
 
     public List<T> neighbors(T v) {
-        if (!vertices.contains(v)) throw new NoSuchElementException("Vertex does not exist in graph.");
+        if (!adjacencyLists.containsKey(v)) throw new NoSuchElementException("Vertex does not exist in graph.");
         return adjacencyLists.get(v);
     }
 
     @Override
     public boolean contains(T vertex) {
-        return vertices.contains(vertex);
+        return adjacencyLists.containsKey(vertex);
     }
 
     @Override
@@ -28,25 +32,31 @@ public class AdjacencyList<T> implements Graph<T> {
     }
 
     public Set<T> getVertices() {
-        return vertices;
+        return adjacencyLists.keySet();
     }
 
     public int size() {
-        return vertices.size();
+        return adjacencyLists.size();
+    }
+
+    @Override
+    public boolean isDirected() {
+        return isDirected;
     }
 
     public T addVertex(T vertex) {
-        if (!vertices.contains(vertex)) adjacencyLists.put(vertex, new LinkedList<T>());
-        vertices.add(vertex);
+        if (!adjacencyLists.containsKey(vertex)) adjacencyLists.put(vertex, new LinkedList<T>());
         return vertex;
     }
 
     public void addEdge(T first, T second) {
-        if (!vertices.contains(first) || !vertices.contains(second)) throw new NoSuchElementException("Vertex does not exist in graph.");
+        if (!adjacencyLists.containsKey(first) || !adjacencyLists.containsKey(second))
+            throw new NoSuchElementException("Vertex does not exist in graph.");
         List<T> firstList = adjacencyLists.get(first);
         if (!firstList.contains(second)) {
             firstList.add(second);
-            adjacencyLists.get(second).add(first);
+            // Only add the first vertex to the second vertex's adjacency list when graph is undirected
+            if (!isDirected) adjacencyLists.get(second).add(first);
         }
     }
 }
