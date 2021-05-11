@@ -1,8 +1,8 @@
-package challenges.graph;
+package challenges.graph.impl;
+
+import challenges.graph.interfaces.DirectedGraph;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class DirectedAdjacencyMatrix implements DirectedGraph<Integer> {
     boolean[][] matrix;

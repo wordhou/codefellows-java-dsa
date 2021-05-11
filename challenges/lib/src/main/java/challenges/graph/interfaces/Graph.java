@@ -1,4 +1,4 @@
-package challenges.graph;
+package challenges.graph.interfaces;
 
 import java.util.List;
 import java.util.Set;

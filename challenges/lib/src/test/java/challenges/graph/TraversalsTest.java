@@ -1,5 +1,11 @@
 package challenges.graph;
 
+import challenges.graph.impl.AdjacencyList;
+import challenges.graph.impl.IntAdjacencyList;
+import challenges.graph.interfaces.Graph;
+import challenges.graph.interfaces.IntGraph;
+import challenges.graph.interfaces.Traversable;
+import challenges.graph.utils.Traversals;
 import org.junit.Before;
 import org.junit.Test;
 

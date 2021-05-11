@@ -1,5 +1,6 @@
 package challenges.graph;
 
+import challenges.graph.interfaces.IntGraph;
 import org.junit.Test;
 
 import java.util.Arrays;

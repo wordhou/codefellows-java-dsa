@@ -1,5 +1,6 @@
-package challenges.graph;
+package challenges.graph.impl;
 
+import challenges.graph.interfaces.WeightedGraph;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;

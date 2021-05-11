@@ -1,4 +1,6 @@
-package challenges.graph;
+package challenges.graph.impl;
+
+import challenges.graph.interfaces.IntGraph;
 
 import java.util.Arrays;
 
@@ -52,10 +54,10 @@ public class IntAdjacencyList implements IntGraph {
         int[] li = lists[i];
         int[] lj = lists[j];
 
-        if (li.length < lj.length) {
-            for (int k = 0; k < li.length; k++) if (li[k] == j) return true;
+        if (orders[i] < orders[j]) {
+            for (int k = 0; k < orders[i]; k++) if (li[k] == j) return true;
         } else {
-            for (int k = 0; k < lj.length; k++) if (lj[k] == i) return true;
+            for (int k = 0; k < orders[j]; k++) if (lj[k] == i) return true;
         }
         return false;
     }

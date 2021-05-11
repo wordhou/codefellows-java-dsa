@@ -1,4 +1,6 @@
-package challenges.graph;
+package challenges.graph.impl;
+
+import challenges.graph.interfaces.DirectedGraph;
 
 import java.util.*;
 

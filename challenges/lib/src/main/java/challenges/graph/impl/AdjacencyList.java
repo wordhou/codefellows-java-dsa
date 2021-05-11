@@ -1,6 +1,6 @@
-package challenges.graph;
+package challenges.graph.impl;
 
-import org.junit.Test;
+import challenges.graph.interfaces.Graph;
 
 import java.util.*;
 
