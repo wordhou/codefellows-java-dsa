@@ -36,17 +36,19 @@ public class Paths {
             if (vertexWeight == null) return null;
             double weight = vertexWeight.getWeight();
             sum = sum == null ? weight : sum + weight;
+
+            vertex = next;
         }
         return sum;
     }
 
     /**
-     * Finds a shortest path from the start node to the finish node
+     * Finds a shortest path from the start node to the finish node using Djikstra's algorithm.
      *
      * @param graph  a double weighted graph on int nodes
      * @param start  the starting node
      * @param finish the ending node
-     * @return
+     * @return an int array containing the nodes along the path from start to finish, inclusive.
      */
     public static int[] shortestPath(DoubleWeightedIntGraph graph, int start, int finish) {
         IndexedDoublePriorityQueue queue = new IndexedDoublePriorityQueue(graph.size());

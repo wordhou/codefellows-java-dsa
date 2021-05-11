@@ -60,9 +60,23 @@ public class IndexedDoublePriorityQueue {
 
     public void update(int label, double weight) {
         int i = heapIndex[label];
-        if (weight > values[i]) return;
+        if (i < 0 || weight > values[i]) return;
         values[i] = weight;
         siftUp(i);
+    }
+
+    /**
+     * Adds an item to the queue if it doesn't exist, and updates it if it does exist. If the new weight is greater than the old weight, does nothing.
+     *
+     * @param label
+     * @param weight
+     */
+    public void put(int label, double weight) {
+        if (heapIndex[label] == -1) {
+            add(label, weight);
+        } else {
+            update(label, weight);
+        }
     }
 
     private void expandHeap() {
@@ -106,19 +120,5 @@ public class IndexedDoublePriorityQueue {
         values[i] = tempValue;
         labels[j] = labels[i];
         labels[i] = tempLabel;
-    }
-
-    /**
-     * Adds an item to the queue if it doesn't exist, and updates it if it does exist. If the new weight is greater than the old weight, does nothing.
-     *
-     * @param label
-     * @param weight
-     */
-    public void put(int label, double weight) {
-        if (heapIndex[label] == -1) {
-            add(label, weight);
-        } else {
-            update(label, weight);
-        }
     }
 }
