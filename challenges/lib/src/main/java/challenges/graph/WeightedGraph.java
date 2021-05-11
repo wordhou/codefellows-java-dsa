@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public interface WeightedGraph<T, W> extends Traversable<T> {
+public interface WeightedGraph<T, W> {
     T addVertex(T vertex);
 
     void addEdge(T vertex1, T vertex2, W weight);
@@ -15,8 +15,6 @@ public interface WeightedGraph<T, W> extends Traversable<T> {
     List<VertexAndWeight<T, W>> neighborsWithWeight(T vertex);
 
     List<T> neighbors(T vertex);
-
-    boolean neighbors(T first, T second);
 
     Set<T> getVertices();
 

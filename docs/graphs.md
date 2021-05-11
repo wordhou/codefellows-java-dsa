@@ -86,7 +86,6 @@ The approaches from above have the following efficiencies:
 The API for the various graph implementations are documented in the interfaces:
 
 ### Undirected unweighted with arbitrary vertex labels
-
 ```java
 public interface Graph<T> {
     T addVertex(T vertex);
@@ -100,9 +99,7 @@ public interface Graph<T> {
     int size();
 }
 ```
-
 ### Undirected unweighted with successive integer vertex labels
-
 ```java
 public interface IntGraph {
     int size();
@@ -116,9 +113,7 @@ public interface IntGraph {
     boolean neighbors(int i, int j);
 }
 ```
-
 ### Undirected weighted with arbitrary vertex labels
-
 ```java
 
 public interface WeightedGraph<T, W> {
@@ -138,47 +133,3 @@ public interface WeightedGraph<T, W> {
     int size();
 }
 ```
-
-# Day 36: Traversals on Graphs
-
-We implement the classic traversals on undirected graphs: breadth first, and depth first.
-
-## Challenge
-
-Implement a method that traverses a graph from a given starting node, visiting every done reachable from the starting
-node exactly once.
-
-## Approach
-
-The approach is the same as traversing a tree, with one small modification. In a graph there can be cycles, paths that
-lead back to an already visited vertex. We need to keep track of the vertices that have been visited, otherwise the
-breadth first and depth first traversals wouldn't terminate. So we maintain a set of vertices that have been visited,
-and then when we add another node to the queue (or the stack, for DFS), we first check to see if it has already been
-visited. If it hasn't been visited, we add it to our visited set and if it has, we skip that vertex and move on to the
-next.
-
-## Efficiency
-
-The efficiency of a traversal depends on the specifics of the graph implementation used. When the graph is implemented
-with an adjacency list, or some other implementation with an O(1) retrieval of the list of neighbors, the algorithm runs
-in O(V) time, where V is the number of vertices in the graph. This is because we visit every vertex at most once, and
-for each vertex, we perform a set contains check, add the vertex to a set, and query the graph for its neighbors, all of
-which are O(1) operations. This algorithm also uses O(V) space, since the stack/queue can hold at most V elements (since
-no vertex gets added twice), and the set will hold at most V vertices as well.
-
-## Solution
-
-The solution code can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/Traversals.java)
-class. These traversals run on any class that implements
-the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/Traversable.java) interface:
-
-```java
-public interface Traversable<T> {
-    Collection<T> neighbors(T vertex);
-
-    boolean contains(T vertex);
-}
-```
-
-This includes my implementations of unweighted and weighted graphs as well as undirected and directed graphs. (The
-directed graph implementations have not been written yet.)

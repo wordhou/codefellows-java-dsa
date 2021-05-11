@@ -13,6 +13,7 @@ public class DirectedAdjacencyMatrix implements DirectedGraph<Integer> {
         matrix = new boolean[size][size];
     }
 
+    @Override
     public List<Integer> outNeighbors(Integer item) {
         List<Integer> out = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -33,28 +34,8 @@ public class DirectedAdjacencyMatrix implements DirectedGraph<Integer> {
         return matrix[from][to];
     }
 
-    @Override
-    public Integer addVertex(Integer vertex) {
-        return null;
-    }
-
     public void addEdge(Integer from, Integer to) {
         matrix[from][to] = true;
-    }
-
-    @Override
-    public List<Integer> neighbors(Integer vertex) {
-        return null;
-    }
-
-    @Override
-    public boolean contains(Integer vertex) {
-        return false;
-    }
-
-    @Override
-    public boolean neighbors(Integer from, Integer to) {
-        return false;
     }
 
     public void removeEdge(Integer from, Integer to) {
@@ -66,10 +47,5 @@ public class DirectedAdjacencyMatrix implements DirectedGraph<Integer> {
         Set<Integer> vertices = new HashSet<>();
         for (int i = 0; i < matrix.length; i++) vertices.add(i);
         return vertices;
-    }
-
-    @Override
-    public int size() {
-        return 0;
     }
 }
