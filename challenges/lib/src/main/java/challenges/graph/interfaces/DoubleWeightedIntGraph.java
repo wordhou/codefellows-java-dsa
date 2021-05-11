@@ -31,5 +31,9 @@ public interface DoubleWeightedIntGraph {
         public double[] getWeights() {
             return weights;
         }
+
+        public int size() {
+            return neighbors.length;
+        }
     }
 }
