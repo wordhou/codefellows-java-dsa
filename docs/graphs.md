@@ -168,9 +168,9 @@ no vertex gets added twice), and the set will hold at most V vertices as well.
 
 ## Solution
 
-The solution code can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/Traversals.java)
+The solution code can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
 class. These traversals run on any class that implements
-the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/Traversable.java) interface:
+the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/interfaces/Traversable.java) interface:
 
 ```java
 public interface Traversable<T> {
@@ -183,7 +183,7 @@ public interface Traversable<T> {
 This includes my implementations of unweighted and weighted graphs as well as undirected and directed graphs. (The
 directed graph implementations have not been written yet.)
 
-# Day 37: Traversals
+# Day 37: Paths
 
 The challenge today asks us to implement a method that verifies whether a sequence of nodes is a path in a graph, and
 also determining the total weight along that path if it exists.
@@ -212,7 +212,6 @@ its weight is an O(1) operation.
 ## Solution
 
 ```java
-
 /**
  * Determines whether or not a sequence of vertices is a valid path through the graph, and if so, determines the
  * total sum of the weights for the graph.
@@ -222,21 +221,36 @@ its weight is an O(1) operation.
  * @param <T>   The type of the value associated with each vertex
  * @return null if the path doesn't exist, otherwise returns the sum of the weights along the path.
  */
-public static <T> Double pathWeight(WeightedGraph<T, Double> graph, Iterable<T> path) {
-        Iterator<T> it = path.iterator();
-        T vertex = it.next();
-        Double sum = null;
-        
-        while (it.hasNext()) {
-            T next = it.next();
-            if (!graph.neighbors(vertex, next)) return null;
-            
-            double weight = graph.getWeight(vertex, next);
-            sum = sum == null ? weight : sum + weight;
-            
-            vertex = next;
+public static<T> Double pathWeight(WeightedGraph<T, Double> graph,Iterable<T> path){
+        Iterator<T> it=path.iterator();
+        T vertex=it.next();
+        Double sum=null;
+
+        while(it.hasNext()){
+        T next=it.next();
+        if(!graph.neighbors(vertex,next))return null;
+
+        double weight=graph.getWeight(vertex,next);
+        sum=sum==null?weight:sum+weight;
+
+        vertex=next;
         }
-        
+
         return sum;
-    }
+        }
 ```
+
+# Day 38: More traversals
+
+The challenge asks us to implement a depth-first (pre-order) traversal on a graph.
+
+## Challenge
+
+Implement a traversal of a graph that processes nodes in depth-first order. This algorithm works on both undirected and
+directed graphs, and only requires the ability to get the neighbors of a node. We will write this algorithm to work on
+our Traversable class.
+
+## Approach
+
+The approach is identical to the depth-first search on binary trees using an explicit stack. The only implementation
+difference is that we track the visited nodes, and add a node to the visited set whenever we enqueue it.
