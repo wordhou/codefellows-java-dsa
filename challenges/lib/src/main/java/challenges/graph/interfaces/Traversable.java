@@ -2,10 +2,11 @@ package challenges.graph.interfaces;
 
 import challenges.stacksQueues.IntDynamicArray;
 import challenges.stacksQueues.IntStack;
+import org.checkerframework.checker.units.qual.C;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.IntConsumer;
 
 public abstract class Traversable<T> {
     public abstract Collection<T> neighbors(T vertex);
@@ -78,5 +79,55 @@ public abstract class Traversable<T> {
         return false;
     }
 
+    /**
+     * Performs a topological sort on a graph.
+     * @return An iterable containing the vertices of the graph in topologically sorted order. If the graph is
+     * undirected or cyclic (cannot be topologically sorted), then returns null.
+     */
+    @Nullable
+    public Iterable<T> topologicalSort() {
+        return new TopologicalSort(getVertices()).solve();
+    }
 
+    private class TopologicalSort {
+        private Set<T> vertices;
+        private Set<T> visited;
+        private Deque<T> result;
+
+        public TopologicalSort(Collection<T> vertices) {
+            this.vertices = new HashSet<>(vertices); // Clones the vertex set because we will be mutating it
+            visited = new HashSet<>();
+            result = new ArrayDeque<>();
+        }
+
+        @Nullable
+        public Iterable<T> solve() {
+            try {
+                while (!vertices.isEmpty()) {
+                    visit(vertices.iterator().next()); // Visit any node still in the vertices set
+                }
+                return result;
+            } catch (CyclicGraphException e) {
+                return null;
+            }
+        }
+
+        private void visit(T vertex) throws CyclicGraphException {
+            if (!vertices.contains(vertex)) return; // If we reach a node that's already been removed from the set, we can stop this DFS
+            if (visited.contains(vertex)) throw new CyclicGraphException(); // If we arrive at an already visited set, we're in a cyclic graph
+
+            visited.add(vertex);
+
+            for(T v : neighbors(vertex)) visit(v);
+
+            visited.remove(vertex);
+            vertices.remove(vertex);
+            result.addFirst(vertex);
+        }
+
+    }
+
+    private static class CyclicGraphException extends Exception {
+        public CyclicGraphException() { super(); }
+    }
 }

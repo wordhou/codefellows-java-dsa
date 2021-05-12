@@ -4,7 +4,7 @@ import challenges.graph.interfaces.IntGraph;
 
 import java.util.Arrays;
 
-public class IntAdjacencyMatrix implements IntGraph {
+public class IntAdjacencyMatrix extends IntGraph {
     private boolean[][] matrix;
     private int numVertices;
     private boolean isDirected;

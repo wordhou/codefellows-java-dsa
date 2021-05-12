@@ -9,16 +9,16 @@ import java.util.List;
  * the graph.
  */
 
-public interface IntGraph {
-    int size();
+public abstract class IntGraph {
+    public abstract int size();
 
-    void resize(int size) throws Exception;
+    public abstract void resize(int size) throws Exception;
 
-    void addEdge(int i, int j);
+    public abstract void addEdge(int i, int j);
 
-    int[] neighbors(int i);
+    public abstract int[] neighbors(int i);
 
-    boolean neighbors(int i, int j);
+    public abstract boolean neighbors(int i, int j);
 
-    boolean isDirected();
+    public abstract boolean isDirected();
 }

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
+public class WeightedAdjacencyList<T, W> extends WeightedGraph<T, W> {
     private Map<T, List<VertexAndWeight<T, W>>> adjacencyLists = new HashMap<>();
     private Set<T> vertices = new HashSet<>();
     private boolean isDirected = false;

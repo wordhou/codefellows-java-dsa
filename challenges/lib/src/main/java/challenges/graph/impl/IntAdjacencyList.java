@@ -4,7 +4,7 @@ import challenges.graph.interfaces.IntGraph;
 
 import java.util.Arrays;
 
-public class IntAdjacencyList implements IntGraph {
+public class IntAdjacencyList extends IntGraph {
     final private static int INIT_CAPACITY = 1;
     private int[][] lists;
     private int[] orders;

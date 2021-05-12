@@ -4,7 +4,7 @@ import challenges.graph.interfaces.Graph;
 
 import java.util.*;
 
-public class AdjacencyList<T> implements Graph<T> {
+public class AdjacencyList<T> extends Graph<T> {
     private Map<T, List<T>> adjacencyLists = new HashMap<>();
     private boolean isDirected = false;
 
