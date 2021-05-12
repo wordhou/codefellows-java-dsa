@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static challenges.utils.Assertions.assertArraysHaveSameElements;
 import static org.junit.Assert.*;
 
-public abstract class IntGraphTest {
+public abstract class DirectedIntGraphTest {
     private IntGraph graph;
 
     protected abstract IntGraph createInstance(int size);
@@ -42,14 +42,18 @@ public abstract class IntGraphTest {
     public void addingEdgeTwiceDoesNotAddItTwice() {
         graph = createInstance(4);
         int[][] edges = {
-                {1, 2}, {1, 3}, {1, 2}, {1, 3},
+                {1, 2}, {1, 3}, {2, 1}, {1, 3},
                 {2, 3}, {2, 3}, {2, 3}, {2, 3}
         };
 
         Arrays.asList(edges).forEach( e -> graph.addEdge(e[0], e[1]));
         assertEquals("Adding an edge multiple times", 2, graph.neighbors(1).length);
+        assertTrue(graph.neighbors(1, 2));
+        assertTrue(graph.neighbors(2, 1));
+        assertTrue(graph.neighbors(1, 3));
+        assertFalse(graph.neighbors(3, 1));
         assertEquals("Adding an edge multiple times", 2, graph.neighbors(2).length);
-        assertEquals("Adding an edge multiple times", 2, graph.neighbors(3).length);
+        assertEquals("Adding an edge multiple times", 0, graph.neighbors(3).length);
     }
 
 

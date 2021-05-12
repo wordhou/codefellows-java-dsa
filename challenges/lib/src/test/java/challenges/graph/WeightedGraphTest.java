@@ -1,5 +1,6 @@
 package challenges.graph;
 
+import challenges.graph.interfaces.WeightedGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -107,24 +108,24 @@ abstract public class WeightedGraphTest {
                 0, graph.neighbors(1).size());
         Arrays.asList(example2).forEach( e -> graph.addEdge(e[0], e[1], e[2]));
 
-        List<VertexAndWeight<Integer, Integer>> expected1 = Arrays.asList(
-                new VertexAndWeight<>(2, 1),
-                new VertexAndWeight<>(3, 2),
-                new VertexAndWeight<>(5, 3),
-                new VertexAndWeight<>(7, 4)
+        List<WeightedGraph.VertexAndWeight<Integer, Integer>> expected1 = Arrays.asList(
+                new WeightedGraph.VertexAndWeight<>(2, 1),
+                new WeightedGraph.VertexAndWeight<>(3, 2),
+                new WeightedGraph.VertexAndWeight<>(5, 3),
+                new WeightedGraph.VertexAndWeight<>(7, 4)
         );
-        List<VertexAndWeight<Integer, Integer>> expected2 = Arrays.asList(
-                new VertexAndWeight<>(1, 1),
-                new VertexAndWeight<>(3, 5),
-                new VertexAndWeight<>(6, 6),
-                new VertexAndWeight<>(7, 7)
+        List<WeightedGraph.VertexAndWeight<Integer, Integer>> expected2 = Arrays.asList(
+                new WeightedGraph.VertexAndWeight<>(1, 1),
+                new WeightedGraph.VertexAndWeight<>(3, 5),
+                new WeightedGraph.VertexAndWeight<>(6, 6),
+                new WeightedGraph.VertexAndWeight<>(7, 7)
         );
-        List<VertexAndWeight<Integer, Integer>> expected7 = Arrays.asList(
-                new VertexAndWeight<>(1, 4),
-                new VertexAndWeight<>(2, 7),
-                new VertexAndWeight<>(5, 10),
-                new VertexAndWeight<>(6, 12),
-                new VertexAndWeight<>(9, 13)
+        List<WeightedGraph.VertexAndWeight<Integer, Integer>> expected7 = Arrays.asList(
+                new WeightedGraph.VertexAndWeight<>(1, 4),
+                new WeightedGraph.VertexAndWeight<>(2, 7),
+                new WeightedGraph.VertexAndWeight<>(5, 10),
+                new WeightedGraph.VertexAndWeight<>(6, 12),
+                new WeightedGraph.VertexAndWeight<>(9, 13)
         );
         assertCollectionsHaveSameElements(expected1, graph.neighborsWithWeight(1));
         assertCollectionsHaveSameElements(expected2, graph.neighborsWithWeight(2));

@@ -1,4 +1,4 @@
-package challenges.graph;
+package challenges.graph.interfaces;
 
 import org.apache.commons.math3.exception.OutOfRangeException;
 
@@ -19,4 +19,6 @@ public interface IntGraph {
     int[] neighbors(int i);
 
     boolean neighbors(int i, int j);
+
+    boolean isDirected();
 }

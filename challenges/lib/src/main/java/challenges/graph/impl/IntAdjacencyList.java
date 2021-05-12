@@ -1,4 +1,6 @@
-package challenges.graph;
+package challenges.graph.impl;
+
+import challenges.graph.interfaces.IntGraph;
 
 import java.util.Arrays;
 
@@ -7,12 +9,18 @@ public class IntAdjacencyList implements IntGraph {
     private int[][] lists;
     private int[] orders;
     private int numVertices;
+    private boolean isDirected;
 
-    public IntAdjacencyList (int size) {
+    public IntAdjacencyList (int size, boolean isDirected) {
         numVertices = size;
         lists = new int[size][INIT_CAPACITY];
         orders = new int[size];
         for (int i = 0; i < numVertices; i++) lists[i] = new int[INIT_CAPACITY];
+        this.isDirected = isDirected;
+    }
+
+    public IntAdjacencyList (int size) {
+        this(size, false);
     }
 
     @Override
@@ -31,7 +39,7 @@ public class IntAdjacencyList implements IntGraph {
     public void addEdge(int i, int j) {
         if (neighbors(i, j)) return;
         addToAdjacencyList(i, j);
-        addToAdjacencyList(j, i);
+        if(!isDirected) addToAdjacencyList(j, i);
     }
 
     private void addToAdjacencyList(int i, int j) {
@@ -52,11 +60,20 @@ public class IntAdjacencyList implements IntGraph {
         int[] li = lists[i];
         int[] lj = lists[j];
 
-        if (li.length < lj.length) {
-            for (int k = 0; k < li.length; k++) if (li[k] == j) return true;
+        if (isDirected) {
+            for (int k = 0; k < orders[i]; k++) if (li[k] == j) return true;
         } else {
-            for (int k = 0; k < lj.length; k++) if (lj[k] == i) return true;
+            if (orders[i] < orders[j]) {
+                for (int k = 0; k < orders[i]; k++) if (li[k] == j) return true;
+            } else {
+                for (int k = 0; k < orders[j]; k++) if (lj[k] == i) return true;
+            }
         }
         return false;
+    }
+
+    @Override
+    public boolean isDirected() {
+        return isDirected;
     }
 }

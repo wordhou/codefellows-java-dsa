@@ -139,7 +139,7 @@ public interface WeightedGraph<T, W> {
 }
 ```
 
-# Day 36: Traversals on Graphs
+# Day 36: Traversals
 
 We implement the classic traversals on undirected graphs: breadth first, and depth first.
 
@@ -182,3 +182,61 @@ public interface Traversable<T> {
 
 This includes my implementations of unweighted and weighted graphs as well as undirected and directed graphs. (The
 directed graph implementations have not been written yet.)
+
+# Day 37: Traversals
+
+The challenge today asks us to implement a method that verifies whether a sequence of nodes is a path in a graph, and
+also determining the total weight along that path if it exists.
+
+## Challenge
+
+We are given a weighted graph and a sequence of vertices from that graph. We're asked to determine if that sequence
+forms a path in the graph. If so, we return the numeric value of the sum of all the weights in that path. Otherwise, we
+return null. The double is wrapped as a Java Object (Double) so that we can return null to indicate that the sequence of
+nodes is not a path.
+
+## Approach
+
+The approach is straight forward. Initialize the sum to 0. Iterate through the sequence. For each vertex in the
+sequence, check whether the next vertex belongs to the neighbors of the current vertex. If so, add the weight of that
+edge to the current sum. If not, return null.
+
+## Efficiency
+
+On a graph represented as an adjacency list, this algorithm runs in O(NE) time, where E is the number of edges in the
+set, and N is the number of vertices in the given sequence, since for each vertex in the sequence, we get its
+neighbors (an O(1) operation) and iterate through them to check whether the next item is in the set. On a graph
+represented by an adjacency matrix, the algorithm runs in O(N) time, since checking whether an edge exists and querying
+its weight is an O(1) operation.
+
+## Solution
+
+```java
+
+/**
+ * Determines whether or not a sequence of vertices is a valid path through the graph, and if so, determines the
+ * total sum of the weights for the graph.
+ *
+ * @param graph A weighted graph
+ * @param path  An iterable of vertex labels
+ * @param <T>   The type of the value associated with each vertex
+ * @return null if the path doesn't exist, otherwise returns the sum of the weights along the path.
+ */
+public static <T> Double pathWeight(WeightedGraph<T, Double> graph, Iterable<T> path) {
+        Iterator<T> it = path.iterator();
+        T vertex = it.next();
+        Double sum = null;
+        
+        while (it.hasNext()) {
+            T next = it.next();
+            if (!graph.neighbors(vertex, next)) return null;
+            
+            double weight = graph.getWeight(vertex, next);
+            sum = sum == null ? weight : sum + weight;
+            
+            vertex = next;
+        }
+        
+        return sum;
+    }
+```

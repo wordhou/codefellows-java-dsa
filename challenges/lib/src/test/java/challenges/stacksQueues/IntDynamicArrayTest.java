@@ -1,13 +1,8 @@
 package challenges.stacksQueues;
 
-import challenges.graph.IntGraph;
-import challenges.graph.Traversable;
-import challenges.graph.Traversals;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;

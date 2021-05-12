@@ -1,13 +1,23 @@
-package challenges.graph;
+package challenges.graph.impl;
 
+import challenges.graph.interfaces.WeightedGraph;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
-    Map<T, List<VertexAndWeight<T, W>>> adjacencyLists = new HashMap<>();
-    Set<T> vertices = new HashSet<>();
+    private Map<T, List<VertexAndWeight<T, W>>> adjacencyLists = new HashMap<>();
+    private Set<T> vertices = new HashSet<>();
+    private boolean isDirected = false;
+
+    public WeightedAdjacencyList(boolean isDirected) {
+        this.isDirected = isDirected;
+    }
+
+    public WeightedAdjacencyList() {
+        this(false);
+    }
 
     public List<VertexAndWeight<T, W>> neighborsWithWeight(T v) {
         if (!vertices.contains(v)) throw new NoSuchElementException("Vertex does not exist in graph.");
@@ -31,11 +41,17 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
     public boolean neighbors(T first, T second) {
         if (!vertices.contains(first) || !vertices.contains(second))
             throw new NoSuchElementException("Vertex does not exist in graph.");
+
         List<VertexAndWeight<T, W>> firstList = adjacencyLists.get(first);
         List<VertexAndWeight<T, W>> secondList = adjacencyLists.get(second);
-        if (firstList.size() < secondList.size())
+
+        if (isDirected) {
             return firstList.stream().anyMatch(vw -> vw.getVertex().equals(second));
-        else return secondList.stream().anyMatch(vw -> vw.getVertex().equals(first));
+        } else {
+            if (firstList.size() < secondList.size())
+                return firstList.stream().anyMatch(vw -> vw.getVertex().equals(second));
+            else return secondList.stream().anyMatch(vw -> vw.getVertex().equals(first));
+        }
     }
 
     public Set<T> getVertices() {
@@ -44,6 +60,11 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
 
     public int size() {
         return vertices.size();
+    }
+
+    @Override
+    public boolean isDirected() {
+        return isDirected;
     }
 
     public T addVertex(T vertex) {
@@ -58,7 +79,7 @@ public class WeightedAdjacencyList<T, W> implements WeightedGraph<T, W> {
         List<VertexAndWeight<T, W>> firstList = adjacencyLists.get(first);
         List<VertexAndWeight<T, W>> secondList = adjacencyLists.get(second);
         setVertexAsNeighbor(first, second, weight);
-        setVertexAsNeighbor(second, first, weight);
+        if (!isDirected) setVertexAsNeighbor(second, first, weight);
     }
 
     private void setVertexAsNeighbor(T first, T second, W weight) {

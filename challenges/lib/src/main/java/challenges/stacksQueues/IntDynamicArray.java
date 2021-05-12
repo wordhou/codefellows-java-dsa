@@ -34,4 +34,12 @@ public class IntDynamicArray implements IntStack {
         if (numElements == 0) throw new NoSuchElementException();
         return array[--numElements];
     }
+
+    public int[] reversed() {
+        int[] result = new int[numElements];
+        for(int i = 0; i < numElements; i++) {
+            result[i] = array[numElements - 1 - i];
+        }
+        return result;
+    }
 }

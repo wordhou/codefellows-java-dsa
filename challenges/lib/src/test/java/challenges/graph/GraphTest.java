@@ -1,10 +1,10 @@
 package challenges.graph;
 
+import challenges.graph.interfaces.Graph;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import static challenges.utils.Assertions.assertCollectionsHaveSameElements;

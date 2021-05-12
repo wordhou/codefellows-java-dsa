@@ -1,5 +1,7 @@
-package challenges.graph;
+package challenges.graph.utils;
 
+import challenges.graph.interfaces.IntGraph;
+import challenges.graph.interfaces.Traversable;
 import challenges.stacksQueues.IntDynamicArray;
 import challenges.stacksQueues.IntStack;
 
@@ -88,7 +90,7 @@ public class Traversals {
         }
     }
 
-    public <T> boolean connected(Traversable<T> graph, T from, T to) {
+    public static <T> boolean connected(Traversable<T> graph, T from, T to) {
         if (!graph.contains(from) || !graph.contains(to))
             throw new NoSuchElementException("Vertex is not in graph");
 
@@ -112,7 +114,7 @@ public class Traversals {
         return false;
     }
 
-    public boolean connected(IntGraph graph, int from, int to) {
+    public static boolean connected(IntGraph graph, int from, int to) {
         if (from >= graph.size() || to >= graph.size())
             throw new NoSuchElementException("Vertex is not in graph");
 
@@ -134,4 +136,5 @@ public class Traversals {
         }
         return false;
     }
+
 }
