@@ -168,7 +168,8 @@ no vertex gets added twice), and the set will hold at most V vertices as well.
 
 ## Solution
 
-The solution code can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
+The solution code can be found in
+the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
 class. These traversals run on any class that implements
 the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/interfaces/Traversable.java) interface:
 
@@ -254,3 +255,30 @@ our Traversable class.
 
 The approach is identical to the depth-first search on binary trees using an explicit stack. The only implementation
 difference is that we track the visited nodes, and add a node to the visited set whenever we enqueue it.
+
+## Efficiency
+
+Traversing through a graph depends on the efficiency of getting the list of neighbors. In an adjacency list, this is an
+O(1) operation.
+
+## Solution
+
+The solution can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
+class.
+
+# Day 38 Extra: Topological Sort
+
+Topological sorting takes a directed graph with no cycles (a directed acyclic graph, or DAG) and sorts the vertices in
+an order where every vertex `x` comes before another vertex `y` if there exists a directed path from `x` to `y`.
+
+Topological sorting algorithms also determine whether a graph has a cycle, since a graph with cycles cannot be
+topologically sorted.
+
+A classic application of the topological sort is building a project that consists of a sequence of jobs ordered on their
+dependencies.
+
+## Approach
+
+A classic algorithm from Cormen et al. topologically sorts a graph using depth first searches on the nodes.
+
+Start with a collection of all the nodes.
