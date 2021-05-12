@@ -4,7 +4,7 @@ import challenges.graph.interfaces.DoubleWeightedIntGraph;
 
 import java.util.Arrays;
 
-public class DoubleWeightedIntAdjacencyList implements DoubleWeightedIntGraph {
+public class DoubleWeightedIntAdjacencyList extends DoubleWeightedIntGraph {
     static final int INIT_CAPACITY = 2;
 
     int[][] neighbors;

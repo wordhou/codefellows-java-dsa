@@ -1,10 +1,10 @@
 package challenges.graph.impl;
 
-import challenges.graph.interfaces.Graph;
+import challenges.graph.interfaces.MutableGraph;
 
 import java.util.*;
 
-public class AdjacencyList<T> extends Graph<T> {
+public class AdjacencyList<T> extends MutableGraph<T> {
     private Map<T, List<T>> adjacencyLists = new HashMap<>();
     private boolean isDirected = false;
 

@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public abstract class WeightedGraph<T, W> extends Traversable<T> {
+public abstract class MutableWeightedClass<T, W> extends Graph<T> {
     public abstract T addVertex(T vertex);
 
     public abstract void addEdge(T vertex1, T vertex2, W weight);

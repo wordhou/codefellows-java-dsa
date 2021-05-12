@@ -1,11 +1,11 @@
 package challenges.graph;
 
 import challenges.graph.impl.AdjacencyList;
-import challenges.graph.interfaces.Graph;
+import challenges.graph.interfaces.MutableGraph;
 
-public class AdjacencyListTest extends GraphTest {
+public class AdjacencyListTest extends MutableGraphTest {
     @Override
-    protected Graph<Integer> createInstance() {
+    protected MutableGraph<Integer> createInstance() {
         return new AdjacencyList<>(false);
     }
 }

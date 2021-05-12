@@ -1,12 +1,12 @@
 package challenges.graph.impl;
 
-import challenges.graph.interfaces.WeightedGraph;
+import challenges.graph.interfaces.MutableWeightedClass;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class WeightedAdjacencyList<T, W> extends WeightedGraph<T, W> {
+public class WeightedAdjacencyList<T, W> extends MutableWeightedClass<T, W> {
     private Map<T, List<VertexAndWeight<T, W>>> adjacencyLists = new HashMap<>();
     private Set<T> vertices = new HashSet<>();
     private boolean isDirected = false;

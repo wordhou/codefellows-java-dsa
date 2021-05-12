@@ -2,15 +2,13 @@ package challenges.graph.utils;
 
 import challenges.graph.interfaces.DoubleWeightedIntGraph;
 import challenges.graph.interfaces.DoubleWeightedIntGraph.NeighborsAndWeights;
-import challenges.graph.interfaces.WeightedGraph;
-import challenges.graph.interfaces.WeightedGraph.VertexAndWeight;
+import challenges.graph.interfaces.MutableWeightedClass;
 import challenges.stacksQueues.IndexedDoublePriorityQueue;
 import challenges.stacksQueues.IntDynamicArray;
 
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Iterator;
-import java.util.List;
 
 public class Paths {
     /**
@@ -22,7 +20,7 @@ public class Paths {
      * @param <T>   The value associated with each vertex
      * @return null if the path doesn't exist, otherwise returns the sum of the weights along the path.
      */
-    public static <T> Double pathWeight(WeightedGraph<T, Double> graph, Iterable<T> path) {
+    public static <T> Double pathWeight(MutableWeightedClass<T, Double> graph, Iterable<T> path) {
         Iterator<T> it = path.iterator();
         T vertex = it.next();
         Double sum = null;

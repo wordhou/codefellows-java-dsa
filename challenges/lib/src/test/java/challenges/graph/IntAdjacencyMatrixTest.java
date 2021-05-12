@@ -1,11 +1,11 @@
 package challenges.graph;
 
 import challenges.graph.impl.IntAdjacencyMatrix;
-import challenges.graph.interfaces.IntGraph;
+import challenges.graph.interfaces.MutableIntGraph;
 
-public class IntAdjacencyMatrixTest extends IntGraphTest {
+public class IntAdjacencyMatrixTest extends MutableIntGraphTest {
     @Override
-    protected IntGraph createInstance(int size) {
+    protected MutableIntGraph createInstance(int size) {
         return new IntAdjacencyMatrix(size);
     }
 }

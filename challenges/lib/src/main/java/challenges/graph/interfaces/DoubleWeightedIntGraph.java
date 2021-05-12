@@ -1,21 +1,13 @@
 package challenges.graph.interfaces;
 
-public interface DoubleWeightedIntGraph {
-    void resize(int size) throws Exception;
+public abstract class DoubleWeightedIntGraph extends IntGraph {
+    public abstract void resize(int size) throws Exception;
 
-    void addEdge(int from, int to, double weight);
+    public abstract void addEdge(int from, int to, double weight);
 
-    DoubleWeightedIntGraph.NeighborsAndWeights neighborsWithWeight(int vertex);
+    public abstract DoubleWeightedIntGraph.NeighborsAndWeights neighborsWithWeight(int vertex);
 
-    int[] neighbors(int vertex);
-
-    boolean neighbors(int from, int to);
-
-    int size();
-
-    boolean isDirected();
-
-    class NeighborsAndWeights {
+    public static class NeighborsAndWeights {
         int[] neighbors;
         double[] weights;
 
