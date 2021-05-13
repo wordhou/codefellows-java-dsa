@@ -3,7 +3,7 @@ package challenges.graph.utils;
 import challenges.graph.impl.DoubleWeightedIntAdjacencyList;
 import challenges.graph.impl.WeightedAdjacencyList;
 import challenges.graph.interfaces.DoubleWeightedIntGraph;
-import challenges.graph.interfaces.MutableWeightedClass;
+import challenges.graph.interfaces.MutableWeightedGraph;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class PathsTest {
 
     @Test
     public void pathWeightOnDirectedGraph() {
-        MutableWeightedClass<Integer, Double> graph = new WeightedAdjacencyList<>(true);
+        MutableWeightedGraph<Integer, Double> graph = new WeightedAdjacencyList<>(true);
         Arrays.asList(0,1,2,3,4,5,6,7,8,9,10).forEach(graph::addVertex);
 
         Arrays.asList(edges1).forEach(a -> graph.addEdge(a[0], a[1], (double) a[2]));

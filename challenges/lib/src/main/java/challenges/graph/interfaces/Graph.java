@@ -11,6 +11,8 @@ public abstract class Graph<T> {
 
     public abstract boolean contains(T vertex);
 
+    public abstract boolean neighbors(T from, T to);
+
     public void breadthFirstTraversal(T init, Consumer<? super T> consumer) {
         Queue<T> queue = new LinkedList<>();
         Set<T> visited = new HashSet<>();
