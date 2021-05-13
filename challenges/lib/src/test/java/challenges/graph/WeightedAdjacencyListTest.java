@@ -1,11 +1,11 @@
 package challenges.graph;
 
 import challenges.graph.impl.WeightedAdjacencyList;
-import challenges.graph.interfaces.MutableWeightedClass;
+import challenges.graph.interfaces.MutableWeightedGraph;
 
-public class WeightedAdjacencyListTest extends MutableWeightedClassTest {
+public class WeightedAdjacencyListTest extends MutableWeightedGraphTest {
     @Override
-    protected MutableWeightedClass<Integer, Integer> createInstance() {
+    protected MutableWeightedGraph<Integer, Integer> createInstance() {
         return new WeightedAdjacencyList<>();
     }
 }

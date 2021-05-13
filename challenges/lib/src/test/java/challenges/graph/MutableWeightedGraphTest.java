@@ -1,6 +1,6 @@
 package challenges.graph;
 
-import challenges.graph.interfaces.MutableWeightedClass;
+import challenges.graph.interfaces.MutableWeightedGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,8 +12,8 @@ import static challenges.utils.Assertions.assertCollectionsHaveSameElements;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-abstract public class MutableWeightedClassTest {
-    MutableWeightedClass<Integer, Integer> graph;
+abstract public class MutableWeightedGraphTest {
+    MutableWeightedGraph<Integer, Integer> graph;
 
     static int[][] example1 = {
             {1, 2, 2}, {1, 3, 3}, {1, 2, 1}, {1, 3, 4},
@@ -32,7 +32,7 @@ abstract public class MutableWeightedClassTest {
             {9, 10, 15},
     };
 
-    protected abstract MutableWeightedClass<Integer, Integer> createInstance();
+    protected abstract MutableWeightedGraph<Integer, Integer> createInstance();
 
     @Before
     public void init() {
@@ -108,24 +108,24 @@ abstract public class MutableWeightedClassTest {
                 0, graph.neighbors(1).size());
         Arrays.asList(example2).forEach( e -> graph.addEdge(e[0], e[1], e[2]));
 
-        List<MutableWeightedClass.VertexAndWeight<Integer, Integer>> expected1 = Arrays.asList(
-                new MutableWeightedClass.VertexAndWeight<>(2, 1),
-                new MutableWeightedClass.VertexAndWeight<>(3, 2),
-                new MutableWeightedClass.VertexAndWeight<>(5, 3),
-                new MutableWeightedClass.VertexAndWeight<>(7, 4)
+        List<MutableWeightedGraph.VertexAndWeight<Integer, Integer>> expected1 = Arrays.asList(
+                new MutableWeightedGraph.VertexAndWeight<>(2, 1),
+                new MutableWeightedGraph.VertexAndWeight<>(3, 2),
+                new MutableWeightedGraph.VertexAndWeight<>(5, 3),
+                new MutableWeightedGraph.VertexAndWeight<>(7, 4)
         );
-        List<MutableWeightedClass.VertexAndWeight<Integer, Integer>> expected2 = Arrays.asList(
-                new MutableWeightedClass.VertexAndWeight<>(1, 1),
-                new MutableWeightedClass.VertexAndWeight<>(3, 5),
-                new MutableWeightedClass.VertexAndWeight<>(6, 6),
-                new MutableWeightedClass.VertexAndWeight<>(7, 7)
+        List<MutableWeightedGraph.VertexAndWeight<Integer, Integer>> expected2 = Arrays.asList(
+                new MutableWeightedGraph.VertexAndWeight<>(1, 1),
+                new MutableWeightedGraph.VertexAndWeight<>(3, 5),
+                new MutableWeightedGraph.VertexAndWeight<>(6, 6),
+                new MutableWeightedGraph.VertexAndWeight<>(7, 7)
         );
-        List<MutableWeightedClass.VertexAndWeight<Integer, Integer>> expected7 = Arrays.asList(
-                new MutableWeightedClass.VertexAndWeight<>(1, 4),
-                new MutableWeightedClass.VertexAndWeight<>(2, 7),
-                new MutableWeightedClass.VertexAndWeight<>(5, 10),
-                new MutableWeightedClass.VertexAndWeight<>(6, 12),
-                new MutableWeightedClass.VertexAndWeight<>(9, 13)
+        List<MutableWeightedGraph.VertexAndWeight<Integer, Integer>> expected7 = Arrays.asList(
+                new MutableWeightedGraph.VertexAndWeight<>(1, 4),
+                new MutableWeightedGraph.VertexAndWeight<>(2, 7),
+                new MutableWeightedGraph.VertexAndWeight<>(5, 10),
+                new MutableWeightedGraph.VertexAndWeight<>(6, 12),
+                new MutableWeightedGraph.VertexAndWeight<>(9, 13)
         );
         assertCollectionsHaveSameElements(expected1, graph.neighborsWithWeight(1));
         assertCollectionsHaveSameElements(expected2, graph.neighborsWithWeight(2));

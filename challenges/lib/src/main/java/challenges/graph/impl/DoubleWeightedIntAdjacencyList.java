@@ -1,10 +1,11 @@
 package challenges.graph.impl;
 
 import challenges.graph.interfaces.DoubleWeightedIntGraph;
+import challenges.graph.interfaces.MutableDoubleWeightedIntGraph;
 
 import java.util.Arrays;
 
-public class DoubleWeightedIntAdjacencyList extends DoubleWeightedIntGraph {
+public class DoubleWeightedIntAdjacencyList extends MutableDoubleWeightedIntGraph {
     static final int INIT_CAPACITY = 2;
 
     int[][] neighbors;
