@@ -96,6 +96,7 @@ public abstract class IntGraph {
 
         public TopologicalSort(int size) {
             vertices = new BitSet(size);
+            vertices.set(0, size);
             visited = new BitSet(size);
             result = new IntDynamicArray();
         }
@@ -107,7 +108,7 @@ public abstract class IntGraph {
                     visit(vertices.nextSetBit(0)); // Visit any node still in the vertices set
                 }
                 return result.reversed();
-            } catch (IntGraph.CyclicGraphException e) {
+            } catch (CyclicGraphException e) {
                 return null;
             }
         }

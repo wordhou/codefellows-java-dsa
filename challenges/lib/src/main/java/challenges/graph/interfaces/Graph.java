@@ -1,9 +1,5 @@
 package challenges.graph.interfaces;
 
-import challenges.stacksQueues.IntDynamicArray;
-import challenges.stacksQueues.IntStack;
-import org.checkerframework.checker.units.qual.C;
-
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
@@ -26,12 +22,12 @@ public abstract class Graph<T> {
             T vertex = queue.remove();
             consumer.accept(vertex);
             Collection<T> neighbors = this.neighbors(vertex);
-            neighbors.stream()
-                    .filter(v -> !visited.contains(v))
-                    .forEach(v -> {
-                        queue.add(v);
-                        visited.add(v);
-                    });
+            for(T v : neighbors)  {
+                if (!visited.contains(v)) {
+                    queue.add(v);
+                    visited.add(v);
+                }
+            }
         }
     }
 
@@ -46,12 +42,12 @@ public abstract class Graph<T> {
             T vertex = stack.pop();
             consumer.accept(vertex);
             Collection<T> neighbors = this.neighbors(vertex);
-            neighbors.stream()
-                    .filter(v -> !visited.contains(v))
-                    .forEach(v -> {
-                        stack.push(v);
-                        visited.add(v);
-                    });
+            for(T v : neighbors)  {
+                if (!visited.contains(v)) {
+                    stack.push(v);
+                    visited.add(v);
+                }
+            }
         }
     }
 
@@ -69,12 +65,12 @@ public abstract class Graph<T> {
             T vertex = queue.remove();
             if (vertex.equals(from)) return true;
             Collection<T> neighbors = this.neighbors(vertex);
-            neighbors.stream()
-                    .filter(v -> !visited.contains(v))
-                    .forEach(v -> {
-                        queue.add(v);
-                        visited.add(v);
-                    });
+            for(T v : neighbors)  {
+                if (!visited.contains(v)) {
+                    queue.add(v);
+                    visited.add(v);
+                }
+            }
         }
         return false;
     }
@@ -90,9 +86,9 @@ public abstract class Graph<T> {
     }
 
     private class TopologicalSort {
-        private Set<T> vertices;
-        private Set<T> visited;
-        private Deque<T> result;
+        private final Set<T> vertices;
+        private final Set<T> visited;
+        private final Deque<T> result;
 
         public TopologicalSort(Collection<T> vertices) {
             this.vertices = new HashSet<>(vertices); // Clones the vertex set because we will be mutating it

@@ -1,19 +1,13 @@
 package challenges.graph.interfaces;
 
-public interface IntWeightedIntGraph {
-    void resize(int size);
+public abstract class IntWeightedIntGraph extends IntGraph {
+    public abstract void resize(int size);
 
-    void addEdge(int from, int to, int weight);
+    public abstract void addEdge(int from, int to, int weight);
 
-    NeighborsAndWeights neighborsWithWeight(int vertex);
+    public abstract NeighborsAndWeights neighborsWithWeight(int vertex);
 
-    int[] neighbors(int vertex);
-
-    boolean neighbors(int from, int to);
-
-    int size();
-
-    class NeighborsAndWeights {
+    public static class NeighborsAndWeights {
         int[] neighbors;
         int[] weights;
 

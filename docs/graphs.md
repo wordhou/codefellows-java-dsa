@@ -161,10 +161,13 @@ next.
 
 The efficiency of a traversal depends on the specifics of the graph implementation used. When the graph is implemented
 with an adjacency list, or some other implementation with an O(1) retrieval of the list of neighbors, the algorithm runs
-in O(V) time, where V is the number of vertices in the graph. This is because we visit every vertex at most once, and
-for each vertex, we perform a set contains check, add the vertex to a set, and query the graph for its neighbors, all of
-which are O(1) operations. This algorithm also uses O(V) space, since the stack/queue can hold at most V elements (since
-no vertex gets added twice), and the set will hold at most V vertices as well.
+in O(V + E) time, where V is the number of vertices in the graph, and E is the number of edges in the graph. This is
+because we visit every vertex at most once. For each vertex, we perform a constant time operation on vertex (adding it
+to the visited set and consuming it), and then iterate through each of its neighbors. For each neighbor, we perform
+another set of constant time operations (a set contains check and an enqueue operation). The total number of neighbors
+of each vertex is the same as the number of edges in the graph, so the running time will be O(V + E). This algorithm
+also uses O(V) space, since the stack/queue can hold at most V elements (since no vertex gets added twice), and the set
+will hold at most V vertices as well.
 
 ## Solution
 
@@ -261,6 +264,10 @@ difference is that we track the visited nodes, and add a node to the visited set
 Traversing through a graph depends on the efficiency of getting the list of neighbors. In an adjacency list, this is an
 O(1) operation.
 
+For each vertex, we iterate through its neighbors and perform a number of constant time operations. In fact the sum of
+the number of neighbors of each vertex is just the number of edges in the graph. Since we also need to perform a number
+of constant time operations on each vertex, our total running time is O(V + E).
+
 ## Solution
 
 The solution can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
@@ -279,6 +286,22 @@ dependencies.
 
 ## Approach
 
-A classic algorithm from Cormen et al. topologically sorts a graph using depth first searches on the nodes.
+A classic algorithm from Cormen et al., and originally written about by Karjan topologically sorts a graph using depth first searches on the nodes.
 
-Start with a collection of all the nodes.
+We start by populating a remaining vertex set with vertices to be sorted, and also populating an empty vertex set of
+vertices that have been visited during a depth first search. We start a depth first search at any vertex in the
+remaining vertex set. If at any point in the depth first search we reach a node that has already been visited during
+that depth first search, we end the algorithm, since we found a cycle. After we finish visiting a vertex and all its
+children, we prepend it to the result list and remove it from the vertex set. This is essentially a depth-first post
+order. Once the depth first search terminates, we remove every node that we visited from the graph, and remove those
+vertices from the remaining vertex set. If there are still vertices in the graph after this depth first search, we pick
+another vertex still in the vertex set, and start a depth first search there. If at any point during the depth first
+search we reach a node that is no longer in the vertex set, we terminate that depth first search. This repeats until
+there are no more vertices in the remaining vertex set.
+
+## Efficiency
+
+Every vertex is visited exactly once during this algorithm. For each vertex, we iterate over its neighbors and check
+whether they're in the remaining vertex set, or whether they're in the visited set. Then for each vertex we will add and
+remove it from the visited set once and remove it from the remaining vertex set once. Since all of these operations are
+O(1), our time complexity is O(V + E), the same as for a depth first traversal.
