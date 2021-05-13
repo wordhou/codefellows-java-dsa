@@ -1,10 +1,10 @@
 package challenges.graph.impl;
 
-import challenges.graph.interfaces.IntGraph;
+import challenges.graph.interfaces.MutableIntGraph;
 
 import java.util.Arrays;
 
-public class IntAdjacencyMatrix implements IntGraph {
+public class IntAdjacencyMatrix extends MutableIntGraph {
     private boolean[][] matrix;
     private int numVertices;
     private boolean isDirected;

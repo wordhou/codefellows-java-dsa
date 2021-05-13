@@ -24,9 +24,7 @@ public class IntDynamicArray implements IntStack {
 
     @Override
     public void push(int item) {
-        if (numElements == array.length)
-            array = Arrays.copyOfRange(array, 0, array.length * 2);
-        array[numElements++] = item;
+        add(item);
     }
 
     @Override
@@ -41,5 +39,11 @@ public class IntDynamicArray implements IntStack {
             result[i] = array[numElements - 1 - i];
         }
         return result;
+    }
+
+    public void add(int item) {
+        if (numElements == array.length)
+            array = Arrays.copyOfRange(array, 0, array.length * 2);
+        array[numElements++] = item;
     }
 }

@@ -161,16 +161,20 @@ next.
 
 The efficiency of a traversal depends on the specifics of the graph implementation used. When the graph is implemented
 with an adjacency list, or some other implementation with an O(1) retrieval of the list of neighbors, the algorithm runs
-in O(V) time, where V is the number of vertices in the graph. This is because we visit every vertex at most once, and
-for each vertex, we perform a set contains check, add the vertex to a set, and query the graph for its neighbors, all of
-which are O(1) operations. This algorithm also uses O(V) space, since the stack/queue can hold at most V elements (since
-no vertex gets added twice), and the set will hold at most V vertices as well.
+in O(V + E) time, where V is the number of vertices in the graph, and E is the number of edges in the graph. This is
+because we visit every vertex at most once. For each vertex, we perform a constant time operation on vertex (adding it
+to the visited set and consuming it), and then iterate through each of its neighbors. For each neighbor, we perform
+another set of constant time operations (a set contains check and an enqueue operation). The total number of neighbors
+of each vertex is the same as the number of edges in the graph, so the running time will be O(V + E). This algorithm
+also uses O(V) space, since the stack/queue can hold at most V elements (since no vertex gets added twice), and the set
+will hold at most V vertices as well.
 
 ## Solution
 
-The solution code can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/Traversals.java)
+The solution code can be found in
+the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
 class. These traversals run on any class that implements
-the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/Traversable.java) interface:
+the [Traversable<T>](../challenges/lib/src/main/java/challenges/graph/interfaces/Traversable.java) interface:
 
 ```java
 public interface Traversable<T> {
@@ -183,7 +187,7 @@ public interface Traversable<T> {
 This includes my implementations of unweighted and weighted graphs as well as undirected and directed graphs. (The
 directed graph implementations have not been written yet.)
 
-# Day 37: Traversals
+# Day 37: Paths
 
 The challenge today asks us to implement a method that verifies whether a sequence of nodes is a path in a graph, and
 also determining the total weight along that path if it exists.
@@ -212,7 +216,6 @@ its weight is an O(1) operation.
 ## Solution
 
 ```java
-
 /**
  * Determines whether or not a sequence of vertices is a valid path through the graph, and if so, determines the
  * total sum of the weights for the graph.
@@ -222,21 +225,83 @@ its weight is an O(1) operation.
  * @param <T>   The type of the value associated with each vertex
  * @return null if the path doesn't exist, otherwise returns the sum of the weights along the path.
  */
-public static <T> Double pathWeight(WeightedGraph<T, Double> graph, Iterable<T> path) {
-        Iterator<T> it = path.iterator();
-        T vertex = it.next();
-        Double sum = null;
-        
-        while (it.hasNext()) {
-            T next = it.next();
-            if (!graph.neighbors(vertex, next)) return null;
-            
-            double weight = graph.getWeight(vertex, next);
-            sum = sum == null ? weight : sum + weight;
-            
-            vertex = next;
+public static<T> Double pathWeight(WeightedGraph<T, Double> graph,Iterable<T> path){
+        Iterator<T> it=path.iterator();
+        T vertex=it.next();
+        Double sum=null;
+
+        while(it.hasNext()){
+        T next=it.next();
+        if(!graph.neighbors(vertex,next))return null;
+
+        double weight=graph.getWeight(vertex,next);
+        sum=sum==null?weight:sum+weight;
+
+        vertex=next;
         }
-        
+
         return sum;
-    }
+        }
 ```
+
+# Day 38: More traversals
+
+The challenge asks us to implement a depth-first (pre-order) traversal on a graph.
+
+## Challenge
+
+Implement a traversal of a graph that processes nodes in depth-first order. This algorithm works on both undirected and
+directed graphs, and only requires the ability to get the neighbors of a node. We will write this algorithm to work on
+our Traversable class.
+
+## Approach
+
+The approach is identical to the depth-first search on binary trees using an explicit stack. The only implementation
+difference is that we track the visited nodes, and add a node to the visited set whenever we enqueue it.
+
+## Efficiency
+
+Traversing through a graph depends on the efficiency of getting the list of neighbors. In an adjacency list, this is an
+O(1) operation.
+
+For each vertex, we iterate through its neighbors and perform a number of constant time operations. In fact the sum of
+the number of neighbors of each vertex is just the number of edges in the graph. Since we also need to perform a number
+of constant time operations on each vertex, our total running time is O(V + E).
+
+## Solution
+
+The solution can be found in the [Traversals](../challenges/lib/src/main/java/challenges/graph/utils/Traversals.java)
+class.
+
+# Day 38 Extra: Topological Sort
+
+Topological sorting takes a directed graph with no cycles (a directed acyclic graph, or DAG) and sorts the vertices in
+an order where every vertex `x` comes before another vertex `y` if there exists a directed path from `x` to `y`.
+
+Topological sorting algorithms also determine whether a graph has a cycle, since a graph with cycles cannot be
+topologically sorted.
+
+A classic application of the topological sort is building a project that consists of a sequence of jobs ordered on their
+dependencies.
+
+## Approach
+
+A classic algorithm from Cormen et al., and originally written about by Karjan topologically sorts a graph using depth first searches on the nodes.
+
+We start by populating a remaining vertex set with vertices to be sorted, and also populating an empty vertex set of
+vertices that have been visited during a depth first search. We start a depth first search at any vertex in the
+remaining vertex set. If at any point in the depth first search we reach a node that has already been visited during
+that depth first search, we end the algorithm, since we found a cycle. After we finish visiting a vertex and all its
+children, we prepend it to the result list and remove it from the vertex set. This is essentially a depth-first post
+order. Once the depth first search terminates, we remove every node that we visited from the graph, and remove those
+vertices from the remaining vertex set. If there are still vertices in the graph after this depth first search, we pick
+another vertex still in the vertex set, and start a depth first search there. If at any point during the depth first
+search we reach a node that is no longer in the vertex set, we terminate that depth first search. This repeats until
+there are no more vertices in the remaining vertex set.
+
+## Efficiency
+
+Every vertex is visited exactly once during this algorithm. For each vertex, we iterate over its neighbors and check
+whether they're in the remaining vertex set, or whether they're in the visited set. Then for each vertex we will add and
+remove it from the visited set once and remove it from the remaining vertex set once. Since all of these operations are
+O(1), our time complexity is O(V + E), the same as for a depth first traversal.

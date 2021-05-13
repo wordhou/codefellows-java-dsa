@@ -1,10 +1,10 @@
 package challenges.graph.impl;
 
-import challenges.graph.interfaces.IntGraph;
+import challenges.graph.interfaces.MutableIntGraph;
 
 import java.util.Arrays;
 
-public class IntAdjacencyList implements IntGraph {
+public class IntAdjacencyList extends MutableIntGraph {
     final private static int INIT_CAPACITY = 1;
     private int[][] lists;
     private int[] orders;

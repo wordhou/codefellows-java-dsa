@@ -1,7 +1,7 @@
 package challenges.graph.utils;
 
-import challenges.graph.interfaces.IntGraph;
-import challenges.graph.interfaces.Traversable;
+import challenges.graph.interfaces.MutableIntGraph;
+import challenges.graph.interfaces.Graph;
 import challenges.stacksQueues.IntDynamicArray;
 import challenges.stacksQueues.IntStack;
 
@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 public class Traversals {
-    public static <T> void breadthFirstTraversal(Traversable<T> graph, T init, Consumer<? super T> consumer) {
+    public static <T> void breadthFirstTraversal(Graph<T> graph, T init, Consumer<? super T> consumer) {
         Queue<T> queue = new LinkedList<>();
         Set<T> visited = new HashSet<>();
         if (!graph.contains(init)) throw new NoSuchElementException();
@@ -30,7 +30,7 @@ public class Traversals {
         }
     }
 
-    public static void breadthFirstTraversal(IntGraph graph, int init, IntConsumer consumer) {
+    public static void breadthFirstTraversal(MutableIntGraph graph, int init, IntConsumer consumer) {
         Queue<Integer> queue = new LinkedList<>();
         BitSet visited = new BitSet();
         if (init >= graph.size()) throw new IndexOutOfBoundsException();
@@ -50,7 +50,7 @@ public class Traversals {
         }
     }
 
-    public static <T> void depthFirstTraversal(Traversable<T> graph, T init, Consumer<? super T> consumer) {
+    public static <T> void depthFirstTraversal(Graph<T> graph, T init, Consumer<? super T> consumer) {
         Deque<T> stack = new ArrayDeque<>();
         Set<T> visited = new HashSet<>();
         if (!graph.contains(init)) throw new NoSuchElementException();
@@ -70,7 +70,7 @@ public class Traversals {
         }
     }
 
-    public static void depthFirstTraversal(IntGraph graph, int init, IntConsumer consumer) {
+    public static void depthFirstTraversal(MutableIntGraph graph, int init, IntConsumer consumer) {
         IntStack stack = new IntDynamicArray();
         BitSet visited = new BitSet();
         if (init >= graph.size()) throw new IndexOutOfBoundsException();
@@ -90,7 +90,7 @@ public class Traversals {
         }
     }
 
-    public static <T> boolean connected(Traversable<T> graph, T from, T to) {
+    public static <T> boolean connected(Graph<T> graph, T from, T to) {
         if (!graph.contains(from) || !graph.contains(to))
             throw new NoSuchElementException("Vertex is not in graph");
 
@@ -114,7 +114,7 @@ public class Traversals {
         return false;
     }
 
-    public static boolean connected(IntGraph graph, int from, int to) {
+    public static boolean connected(MutableIntGraph graph, int from, int to) {
         if (from >= graph.size() || to >= graph.size())
             throw new NoSuchElementException("Vertex is not in graph");
 
@@ -136,5 +136,4 @@ public class Traversals {
         }
         return false;
     }
-
 }
