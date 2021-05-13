@@ -10,8 +10,6 @@ public abstract class WeightedGraph<T, W> extends Graph<T> {
 
     public abstract List<MutableWeightedGraph.VertexAndWeight<T, W>> neighborsWithWeight(T vertex);
 
-    public abstract boolean neighbors(T first, T second);
-
     public abstract int size();
 
     public abstract boolean isDirected();
