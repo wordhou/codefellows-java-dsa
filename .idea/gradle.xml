@@ -4,9 +4,12 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/challenges" />
-        <option name="gradleJvm" value="14" />
+        <option name="gradleHome" value="/opt/gradle/latest" />
+        <option name="gradleJvm" value="11 (GrallVM 21)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/challenges" />

@@ -3,6 +3,7 @@ package challenges.graph.utils;
 import challenges.graph.impl.DoubleWeightedIntAdjacencyList;
 import challenges.graph.impl.WeightedAdjacencyList;
 import challenges.graph.interfaces.DoubleWeightedIntGraph;
+import challenges.graph.interfaces.MutableDoubleWeightedIntGraph;
 import challenges.graph.interfaces.MutableWeightedGraph;
 import org.junit.Test;
 
@@ -46,7 +47,7 @@ public class PathsTest {
 
     @Test
     public void shortestPath() {
-        DoubleWeightedIntGraph graph = new DoubleWeightedIntAdjacencyList(11, true);
+        MutableDoubleWeightedIntGraph graph = new DoubleWeightedIntAdjacencyList(11, true);
         Arrays.asList(edges1).forEach(a -> graph.addEdge(a[0], a[1], a[2]));
 
         assertArrayEquals(new int[]{0, 1}, Paths.shortestPath(graph, 0, 1));

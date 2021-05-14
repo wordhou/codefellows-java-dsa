@@ -1,4 +1,4 @@
-package challenges;
+package challenges.utilities;
 
 public class ArrayShift {
     public static int[] insertShiftArray(int[] input, int element) {

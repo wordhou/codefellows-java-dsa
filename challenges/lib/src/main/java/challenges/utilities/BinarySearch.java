@@ -1,4 +1,4 @@
-package challenges;
+package challenges.utilities;
 
 public class BinarySearch {
     public static int binarySearch(int[] array, int num) {

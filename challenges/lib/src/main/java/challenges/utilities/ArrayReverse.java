@@ -1,4 +1,4 @@
-package challenges;
+package challenges.utilities;
 
 import java.util.Arrays;
 

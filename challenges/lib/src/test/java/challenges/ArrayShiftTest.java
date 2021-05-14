@@ -1,5 +1,6 @@
 package challenges;
 
+import challenges.utilities.ArrayShift;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

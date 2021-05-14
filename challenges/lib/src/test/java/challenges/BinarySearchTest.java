@@ -1,5 +1,6 @@
 package challenges;
 
+import challenges.utilities.BinarySearch;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

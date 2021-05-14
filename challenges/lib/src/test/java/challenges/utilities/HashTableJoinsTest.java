@@ -57,6 +57,7 @@ public class HashTableJoinsTest {
             {1, 3, 5}
     };
 
+    @SuppressWarnings("rawtypes")
     static Pair[][] expectedValues = {
             {
                     new Pair(10, 1),
