@@ -7,7 +7,7 @@ Code challenges and data structures and algorithms for Codefellows 401 Java cour
 - [Binary and rose trees](docs/binary-trees.md)
 - [Sorting](docs/sorting.md)
 - [Hash-based data structures](docs/hash-tables.md)
-- [Graphs: implementations and uses](docs/graphs.md)
+- [Graphs: implementations and algorithms](docs/graphs.md)
 
 # Day by day summaries
 
